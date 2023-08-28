@@ -1,6 +1,10 @@
 import { Schema, mongoose } from "mongoose"
 
 const notesSchema = new Schema({
+    userId:{
+        type:String,
+        required: true
+    },
     newNoteTitle: {
         type: String,
         required:[true, 'Title required'],

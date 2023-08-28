@@ -1,5 +1,7 @@
 "use client";
 import AppLayout from "@/components/Layouts/AppLayout";
+import NavHeader from "@/components/NavHeader";
+import { useUser } from "@clerk/nextjs";
 import {
   Avatar,
   FormControl,
@@ -9,6 +11,7 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -17,9 +20,11 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
+  const { user } = useUser();
+  const userId = user && user.id;
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, data) => {
     e.preventDefault();
     console.log(newNote);
     console.log(newNoteTitle);
@@ -32,6 +37,7 @@ function CreateNote() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
+          userId,
           newNoteTitle,
           newNote,
           category,
@@ -53,13 +59,8 @@ function CreateNote() {
   return (
     <AppLayout>
       <div className=" container p-10 pt-0">
-        <div className="flex flex-row justify-between items-center">
-          <p>Saturday 19 August 2023</p>
-          <div className="flex flex-row justify-center items-center gap-2">
-            <p>Herman Athor</p>
-            <Avatar />
-          </div>
-        </div>
+        <NavHeader />
+
         <div>Create a Note</div>
         <form onSubmit={handleSubmit} className="flex flex-col">
           <TextField

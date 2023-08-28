@@ -8,9 +8,13 @@ export async function POST(req){
   const {newNoteTitle,newNote,category,} = await req.json()
   
   try {
+      const { userId } = req.session;
       await mongodb()
       await Notes.create({
-          newNoteTitle,newNote,category
+        userId,
+        newNoteTitle,
+        newNote,
+        category
       })
       
       return NextResponse.json({
