@@ -15,8 +15,8 @@ function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(async () => {
-    await fetch("/api/getNote")
+  useEffect(() => {
+    fetch("/api/getNote")
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

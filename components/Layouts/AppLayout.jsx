@@ -5,19 +5,11 @@ import Sidebar from "../Sidebar";
 
 export default function AppLayout({ children }) {
   return (
-    <div className="fixed min-h-screen overflow-hidden w-full no-scrollbar">
+    <div className="fixed min-h-screen w-full overflow-auto no-scrollbar">
       <Grid container spacing={0}>
-        <Grid item xs={2} className="">
-          <div className="flex flex-col items-center justify-center overflow-y-scroll max-h-screen w-full bg-white no-scrollbar">
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              className=" bg-white"
-            >
-              <Sidebar />
-            </Grid>
+        <Grid item xs={2} className="w-full">
+          <div className="flex flex-col items-center justify-center overflow-y-scroll max-h-screen w-full no-scrollbar">
+            <Sidebar />
           </div>
         </Grid>
         <Grid item xs={10} className="border-2 border-l-slate-400">
@@ -52,5 +44,19 @@ export default function AppLayout({ children }) {
         {children}
       </Grid>
     </Grid>
+
+//sidebar 
+
+    <div>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              className=" bg-white"
+            >
+              <Sidebar />
+            </Grid>
+          </div>
 
     */

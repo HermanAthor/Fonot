@@ -20,8 +20,10 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
-  const { user } = useUser();
-  const userId = user && user.id;
+  // const { user } = useUser();
+  // const userId = user && user.id;
+  const userId = "user_2UcCfLTdGCXcDa5lmUFiTQAwk8x";
+
   const router = useRouter();
 
   const handleSubmit = async (e, data) => {

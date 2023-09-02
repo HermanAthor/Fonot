@@ -1,22 +1,27 @@
+import { mongodb } from "@/app/libs/mongodb";
+import newNotes from "@/app/models/newNoteModel";
 import Notes from "@/app/models/notes"
-import { mongodb } from "@/libs/mongodb"
 import mongoose from "mongoose"
 import { NextResponse } from "next/server"
 
 export async function POST(req){
-  
-  const {newNoteTitle,newNote,category,} = await req.json()
+            //don't know if i should extract the userId from the request.???
+  const {newNoteTitle, newNote, category, userId} = await req.json()
   
   try {
-      const { userId } = req.session;
+      // const { userId } = req.session; // getting user Session from the request session __posted from the front-end
+      // const userId = "user_2UcCfLTdGCXcDa5lmUFiTQAwk8x";
       await mongodb()
-      await Notes.create({
-        userId,
+      const createdNote = await newNotes.create({
+        userId,                     // Creating the document using the userId from the req.session 
         newNoteTitle,
         newNote,
         category
-      })
-      
+      });
+
+      console.log('New note has been created!');
+      console.log(createdNote);
+
       return NextResponse.json({
           results: ['Data sent succefully'],
           success: true,
@@ -35,7 +40,7 @@ export async function POST(req){
     }else{
       return NextResponse.json({results: ['Unable to Create A Note']})
     }
-    console.log(err)
+    console.log(error)
        
   }
     

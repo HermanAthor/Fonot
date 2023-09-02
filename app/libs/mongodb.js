@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose")
+import mongoose from "mongoose"
 
 export const mongodb = async ()=>{
     try {
@@ -6,7 +6,6 @@ export const mongodb = async ()=>{
             await mongoose.connect(process.env.MONGODB_URI)
             console.log('database connected')
         }
-
         
     } catch (error) {
         console.log(error)
