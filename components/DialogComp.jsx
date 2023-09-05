@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Paper,
 } from "@mui/material";
 import React from "react";
 
@@ -25,15 +26,17 @@ function DialogComp({
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
       >
-        <DialogTitle id="max-width-dialog-title">{title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{subtitle}</DialogContentText>
-          {children}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete}>Delete</Button>
-        </DialogActions>
+        <Paper>
+          <DialogTitle id="max-width-dialog-title">{title}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{subtitle}</DialogContentText>
+            {children}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleDelete}>Delete</Button>
+          </DialogActions>
+        </Paper>
       </Dialog>
     </>
   );
