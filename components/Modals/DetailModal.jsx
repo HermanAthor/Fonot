@@ -29,6 +29,9 @@ function DetailModal({ isOpen, handleClose, note }) {
             <Card sx={{ maxWidth: 845, bgcolor: "#c8ccbc", p: "10px" }}>
               <Box className="">
                 <TextField
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
                   variant="standard"
                   //value={editNoteTitle}
                   defaultValue={newNoteTitle}
@@ -38,6 +41,9 @@ function DetailModal({ isOpen, handleClose, note }) {
                   rows={2}
                 />
                 <TextField
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
                   variant="standard"
                   defaultValue={newNote}
                   // value={editNote}
