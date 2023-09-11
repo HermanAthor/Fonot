@@ -13,7 +13,6 @@ export default function Sidebar() {
       .then((data) => {
         if (data.success) {
           setNotesList(data.results);
-          console.log(notes);
         }
       })
       .catch((error) => console.error("Error fetching notes:", error));
@@ -33,16 +32,25 @@ export default function Sidebar() {
           </Link>
           <Link
             className="flex items-center hover:bg-[#e8edd5] p-2"
+            href={"/mynotes"}
+          >
+            <SubjectOutlinedIcon className="text-amber-600 text-5xl md:2xl" />
+            <h6 className="ml-2 text-xl">My Notes</h6>
+          </Link>
+          <Link
+            className="flex items-center hover:bg-[#e8edd5] p-2"
             href={"/createNote"}
           >
             <AddCircleOutlineOutlinedIcon className="text-amber-600 text-5xl md:2xl" />
             <h6 className="ml-2 text-xl">Create Note</h6>
           </Link>
           <ul className="overflow-y-auto flex-grow">
-            {notesList.map((note, index) => (
-              <li key={index} className="p-2">
-                {note.newNoteTitle}
-              </li>
+            {notesList.map((note) => (
+              <Link href={`/noteDetails/${note._id}`}>
+                <li key={note._id} className="p-2">
+                  {note.newNoteTitle}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>

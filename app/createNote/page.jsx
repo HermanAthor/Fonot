@@ -20,9 +20,8 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
-  // const { user } = useUser();
-  // const userId = user && user.id;
-  const userId = "user_2UcCfLTdGCXcDa5lmUFiTQAwk8x";
+  const { user } = useUser();
+  const userId = user.id;
 
   const router = useRouter();
 
@@ -31,6 +30,7 @@ function CreateNote() {
     console.log(newNote);
     console.log(newNoteTitle);
     console.log(category);
+    console.log("User from the client Side:", user);
 
     try {
       const res = await fetch("api/creatNote", {

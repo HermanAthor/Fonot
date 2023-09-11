@@ -15,7 +15,6 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getNoteData } from "../libs/getData";
 
 function AllNotes() {
   const [notes, setNotes] = useState([]);
@@ -42,24 +41,17 @@ function AllNotes() {
     console.log("Note", note);
   };
 
-  useEffect(async () => {
-    const data = await getNoteData();
-    if (data) {
-      setNotes(data.results);
-    }
+  useEffect(() => {
+    fetch("/api/getUserNotes")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setNotes(data.results);
+          console.log(notes);
+        }
+      })
+      .catch((error) => console.error("Error fetching notes:", error));
   }, []);
-
-  // useEffect(() => {
-  //   fetch("/api/getNote")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.success) {
-  //         setNotes(data.results);
-  //         console.log(notes);
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching notes:", error));
-  // }, []);
 
   const filteredNotes = notes.filter((filteredNote) => {
     if (search === "") {
