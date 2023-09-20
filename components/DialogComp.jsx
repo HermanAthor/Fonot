@@ -26,7 +26,7 @@ function DialogComp({
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
       >
-        <Paper>
+        <Paper className="dark:bg-[#5c5e5f]">
           <DialogTitle id="max-width-dialog-title">{title}</DialogTitle>
           <DialogContent>
             <DialogContentText>{subtitle}</DialogContentText>

@@ -15,14 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getNoteData } from "../libs/getData";
-import Search from "@/components/Search";
-import { UserButton, useUser } from "@clerk/nextjs";
 
 function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
-  const { user } = useUser(); //getting user object
 
   //handling the modal state ...
   const [isOpen, setIsOpen] = useState(false);
@@ -45,11 +41,16 @@ function AllNotes() {
     console.log("Note", note);
   };
 
-  useEffect(async () => {
-    const data = await getNoteData();
-    if (data) {
-      setNotes(data.results);
-    }
+  useEffect(() => {
+    fetch("/api/getUserNotes")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setNotes(data.results);
+          console.log(notes);
+        }
+      })
+      .catch((error) => console.error("Error fetching notes:", error));
   }, []);
 
   const filteredNotes = notes.filter((filteredNote) => {
@@ -66,26 +67,23 @@ function AllNotes() {
 
   return (
     <AppLayout>
-      <NavHeader setSearch={setSearch} />
-
-      <div className="px-10 flex flex-row justify-between items-center w-full">
-        <div className="my-4 flex flex-row justify-between w-auto items-center gap-10">
-          <Typography variant="h6" className="text-lg ">
+      <div className="overflow-y-auto">
+        <NavHeader />
+        <div className="flex justify-center items-center p-4 mx-24">
+          <input
+            className="w-full p-3 rounded-3xl mt-3 mb-3 border-2 border-slate-700"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="px-10">
+          <Typography variant="h5">
             {" "}
             You have {filteredNotes.length} Notes
           </Typography>
-          <div className="hidden md:flex w-96">
-            <Search setSearch={setSearch} search={search} />
-          </div>
-          <div className="inline md:hidden">Select component</div>
         </div>
-        <div className="hidden md:flex flex-row justify-center items-center gap-3">
-          <p className="text-lg">{user?.firstName}</p>
-          <UserButton afterSignOutUrl="/" />
-        </div>
-      </div>
-      <div className="overflow-y-auto p-2 no-scrollbar">
-        <div className=" overflow-y-auto">
+        <div className="container overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-3">
             {notes &&
               filteredNotes.map((note) => {
@@ -123,7 +121,7 @@ function AllNotes() {
                   <>
                     <Card
                       key={_id}
-                      className={`${bgColor} dark:bg-[#515354]`}
+                      className={`${bgColor}`}
                       onClick={() => ModalOpen(note)}
                     >
                       <CardHeader
@@ -165,3 +163,28 @@ function AllNotes() {
 }
 
 export default AllNotes;
+
+/*
+<div
+  key={_id}
+  style={{ backgroundColor: bgColor1 }}
+  className="w-full border-2 p-5 gap-3 mx-3 space-x-4 shadow-lg"
+>
+  <div className="flex flex-col justify-start">
+    <div className="flex flex-row gap-2">
+      <Avatar className={`${bgColor}`}>
+        {category[0].toUpperCase()}
+      </Avatar>
+      <div className="flex flex-col">
+        <p>{newNoteTitle}</p>
+        <p>{category}</p>
+      </div>
+    </div>
+    <div className="flex">
+      <p className="leading-relaxed">{newNote}</p>
+    </div>
+  </div>
+</div>
+
+
+*/
