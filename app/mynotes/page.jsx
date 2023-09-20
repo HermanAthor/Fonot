@@ -3,6 +3,8 @@ import DialogComp from "@/components/DialogComp";
 import AppLayout from "@/components/Layouts/AppLayout";
 import DetailModal from "@/components/Modals/DetailModal";
 import NavHeader from "@/components/NavHeader";
+import Search from "@/components/Search";
+import { UserButton, useUser } from "@clerk/nextjs";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import {
   Avatar,
@@ -16,7 +18,8 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-function AllNotes() {
+function MyNotes() {
+  const { user } = useUser();
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -69,20 +72,28 @@ function AllNotes() {
     <AppLayout>
       <div className="overflow-y-auto">
         <NavHeader />
-        <div className="flex justify-center items-center p-4 mx-24">
-          <input
-            className="w-full p-3 rounded-3xl mt-3 mb-3 border-2 border-slate-700"
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        <div className="px-10 flex flex-row justify-between items-center w-full">
+          <div className="my-4 flex flex-row justify-between w-auto items-center gap-10">
+            <Typography variant="h6" className="text-lg ">
+              {" "}
+              You have {filteredNotes.length} Notes
+            </Typography>
+            <div className="hidden md:flex w-96">
+              <Search setSearch={setSearch} search={search} />
+            </div>
+            <div className="inline md:hidden">Select component</div>
+          </div>
+          <div className="hidden md:flex flex-row justify-center items-center gap-3">
+            <p className="text-lg">{user?.firstName}</p>
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
-        <div className="px-10">
+        {/* <div className="px-10">
           <Typography variant="h5">
             {" "}
             You have {filteredNotes.length} Notes
           </Typography>
-        </div>
+        </div> */}
         <div className="container overflow-y-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-3">
             {notes &&
@@ -162,7 +173,7 @@ function AllNotes() {
   );
 }
 
-export default AllNotes;
+export default MyNotes;
 
 /*
 <div
