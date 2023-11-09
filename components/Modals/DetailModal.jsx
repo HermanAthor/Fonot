@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DialogComp from "../DialogComp";
 import { useTheme } from "@emotion/react";
 import {
@@ -11,16 +11,65 @@ import {
 } from "@mui/material";
 import EditNote from "../EditNote";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useRouter } from "next/navigation";
 
 function DetailModal({ isOpen, handleClose, note }) {
-  const { newNoteTitle, newNote, category } = note;
+  const router = useRouter();
+  const { newNoteTitle, newNote, category, _id } = note;
+  const [editNoteTitle, setEditNoteTitle] = useState(newNoteTitle);
+  const [editNote, setEditNote] = useState(newNote);
+
   const italic = "italic";
+
+  // edit/update Note function
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/${_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ editNote, editNoteTitle }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to update topic");
+      }
+
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // delete Note function
+  const handleDelete = async () => {
+    const confirmed = confirm("Are you sure?");
+
+    if (confirmed) {
+      const res = await fetch(
+        `http://localhost:3000/api/deleteNote?id=${_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (res.ok) {
+        router.refresh();
+        handleClose();
+        router.refresh();
+      }
+    }
+  };
+
   return (
     <>
       <DialogComp
         isOpen={isOpen}
         handleClose={handleClose}
         title={newNoteTitle}
+        handleDelete={handleDelete}
       >
         <div>
           <div>{newNoteTitle}</div>
@@ -33,9 +82,9 @@ function DetailModal({ isOpen, handleClose, note }) {
                     disableUnderline: true,
                   }}
                   variant="standard"
-                  //value={editNoteTitle}
+                  value={editNoteTitle}
                   defaultValue={newNoteTitle}
-                  // onChange={(e) => setEditNoteTitle(e.target.value)}
+                  onChange={(e) => setEditNoteTitle(e.target.value)}
                   className="mt-4"
                   multiline
                   rows={2}
@@ -46,8 +95,8 @@ function DetailModal({ isOpen, handleClose, note }) {
                   }}
                   variant="standard"
                   defaultValue={newNote}
-                  // value={editNote}
-                  // onChange={(e) => setEditNote(e.target.value)}
+                  value={editNote}
+                  onChange={(e) => setEditNote(e.target.value)}
                   className={`mt-4 w-full ${italic ? "italic" : "not-italic"}`}
                   multiline
                   rows={4}

@@ -70,7 +70,7 @@ export default function Sidebar() {
           </Link>
           <ul className="hidden overflow-y-auto md:flex md:flex-grow flex-col">
             {notesList.map((note) => (
-              <Link href={`/noteDetails/${note._id}`}>
+              <Link href={`/allNotes/${note._id}`}>
                 <li key={note._id} className="p-2">
                   {note.newNoteTitle}
                 </li>

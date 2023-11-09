@@ -18,6 +18,9 @@ import React, { useEffect, useState } from "react";
 import { getNoteData } from "../libs/getData";
 import Search from "@/components/Search";
 import { UserButton, useUser } from "@clerk/nextjs";
+import SelectComp from "@/components/SelectComp";
+import Draggable from "react-draggable";
+import { getBgColor, getCardBgColor } from "../libs/dynamicColors";
 
 function AllNotes() {
   const [notes, setNotes] = useState([]);
@@ -45,12 +48,19 @@ function AllNotes() {
     console.log("Note", note);
   };
 
-  useEffect(async () => {
-    const data = await getNoteData();
-    if (data) {
-      setNotes(data.results);
-    }
-  }, []);
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const data = await getNoteData();
+        if (data) {
+          setNotes(data.results);
+        }
+      } catch (error) {
+        console.log("Error fecthing Notes", error);
+      }
+    };
+    fetchNotes();
+  }, [notes]);
 
   const filteredNotes = notes.filter((filteredNote) => {
     if (search === "") {
@@ -77,7 +87,9 @@ function AllNotes() {
           <div className="hidden md:flex w-96">
             <Search setSearch={setSearch} search={search} />
           </div>
-          <div className="inline md:hidden">Select component</div>
+          <div className="inline md:hidden ">
+            <SelectComp notes={notes} />
+          </div>
         </div>
         <div className="hidden md:flex flex-row justify-center items-center gap-3">
           <p className="text-lg">{user?.firstName}</p>
@@ -90,63 +102,48 @@ function AllNotes() {
             {notes &&
               filteredNotes.map((note) => {
                 const { category, newNoteTitle, newNote, _id } = note;
-                let bgColor = "";
-                if (category) {
-                  if (category === "work") {
-                    bgColor = "bg-yellow-500";
-                  } else if (category === "todos") {
-                    bgColor = "bg-red-500";
-                  } else if (category === "reminders") {
-                    bgColor = "bg-blue-500";
-                  } else if (category === "work") {
-                    bgColor = "bg-yellow-500";
-                  } else if (category === "money") {
-                    bgColor = "bg-green-500";
-                  }
-                }
+                const avatarBg = getBgColor(category);
+                const cardBg = getCardBgColor(category);
 
-                const getBgColor = () => {
-                  let bgColor1 = "";
-                  if (category) {
-                    if (category === "work") {
-                      return (bgColor1 = "#f2fa84");
-                    } else if (category === "todos") {
-                      return (bgColor1 = "#fa7066");
-                    } else if (category === "reminders") {
-                      return (bgColor1 = "#84ecfa");
-                    } else if (category === "money") {
-                      return (bgColor1 = "#84fa88");
-                    }
-                  }
-                };
                 return (
                   <>
-                    <Card
+                    <Draggable
+                      axis="both"
+                      handle=".handle"
+                      defaultPosition={{ x: 0, y: 0 }}
+                      position={null}
+                      grid={[25, 25]}
+                      scale={1}
                       key={_id}
-                      className={`${bgColor} dark:bg-[#515354]`}
-                      onClick={() => ModalOpen(note)}
                     >
-                      <CardHeader
-                        avatar={
-                          <Avatar
-                            sx={{ bgcolor: { getBgColor } }}
-                            aria-label="category"
-                          >
-                            {category[0].toUpperCase()}
-                          </Avatar>
-                        }
-                        title={newNoteTitle}
-                        subheader={category}
-                      />
-                      <CardContent>
-                        <Typography variant="body2">{newNote}</Typography>
-                      </CardContent>
-                      <CardActions>
-                        <IconButton>
-                          <MoreHorizOutlinedIcon />
-                        </IconButton>
-                      </CardActions>
-                    </Card>
+                      <Card
+                        key={_id}
+                        className={`handle ${cardBg} dark:bg-[#515354]`}
+                        onClick={() => ModalOpen(note)}
+                        sx={{ bgcolor: cardBg }}
+                      >
+                        <CardHeader
+                          avatar={
+                            <Avatar
+                              sx={{ bgcolor: avatarBg }}
+                              aria-label="category"
+                            >
+                              {category[0].toUpperCase()}
+                            </Avatar>
+                          }
+                          title={newNoteTitle}
+                          subheader={category}
+                        />
+                        <CardContent>
+                          <Typography variant="body2">{newNote}</Typography>
+                        </CardContent>
+                        <CardActions>
+                          <IconButton>
+                            <MoreHorizOutlinedIcon />
+                          </IconButton>
+                        </CardActions>
+                      </Card>
+                    </Draggable>
                   </>
                 );
               })}

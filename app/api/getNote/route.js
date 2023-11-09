@@ -1,19 +1,18 @@
-
-
 import { mongodb } from "@/app/libs/mongodb";
+import newNotes from "@/app/models/newNoteModel";
 import Notes from "@/app/models/notes";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function GET(req, res) {
-  const user = await currentUser()
+  const user = await currentUser();
 
   if (!user) {
-    return res.status(400).json({ error: 'Missing userId.' });
+    return res?.status(400).json({ error: "Missing userId." });
   }
   try {
     await mongodb();
-    const notes = await Notes.find({})
+    const notes = await newNotes.find({});
     return NextResponse.json({
       results: notes,
       success: true,
@@ -21,7 +20,7 @@ export async function GET(req, res) {
   } catch (error) {
     console.error("An error occurred:", error);
     return NextResponse.json({
-      results: ['An error occurred while fetching notes'],
+      results: ["An error occurred while fetching notes"],
       success: false,
     });
   }

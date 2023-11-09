@@ -21,7 +21,7 @@ function CreateNote() {
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
   const { user } = useUser();
-  const userId = user.id;
+  const userId = user?.id;
 
   const router = useRouter();
 
@@ -63,13 +63,17 @@ function CreateNote() {
       <div className=" container p-10 pt-0">
         <NavHeader />
 
-        <div>Create a Note</div>
-        <form onSubmit={handleSubmit} className="flex flex-col">
+        <div className="text-3xl mb-4">Create a Note</div>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 justify-start items-start"
+        >
           <TextField
             value={newNoteTitle}
             onChange={(e) => setNewNoteTitle(e.target.value)}
             className="mt-4"
             label="Note title"
+            fullWidth
           />
           <TextField
             value={newNote}
@@ -78,8 +82,9 @@ function CreateNote() {
             label="Note"
             multiline
             rows={4}
+            fullWidth
           />
-          <FormControl>
+          <FormControl sx={{ width: "fit-content" }}>
             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -106,7 +111,9 @@ function CreateNote() {
             </RadioGroup>
           </FormControl>
           <div>{data && data.map((error) => <div>{error}</div>)}</div>
-          <button>Submit</button>
+          <button className="px-10 py-3 bg-gray-300 rounded-3xl hover:bg-gray-500 text-xl text-slate-600 hover:text-gray-300">
+            Submit
+          </button>
         </form>
       </div>
     </AppLayout>
