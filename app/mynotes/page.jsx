@@ -4,7 +4,7 @@ import AppLayout from "@/components/Layouts/AppLayout";
 import DetailModal from "@/components/Modals/DetailModal";
 import NavHeader from "@/components/NavHeader";
 import Search from "@/components/Search";
-import { UserButton, useUser } from "@clerk/nextjs";
+//import { UserButton, useUser } from "@clerk/nextjs";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import {
   Avatar,
@@ -19,7 +19,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 function MyNotes() {
-  const { user } = useUser();
+  //const { user } = useUser();
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -84,8 +84,8 @@ function MyNotes() {
             <div className="inline md:hidden">Select component</div>
           </div>
           <div className="hidden md:flex flex-row justify-center items-center gap-3">
-            <p className="text-lg">{user?.firstName}</p>
-            <UserButton afterSignOutUrl="/" />
+            {/* <p className="text-lg">{user?.firstName}</p>
+            <UserButton afterSignOutUrl="/" /> */}
           </div>
         </div>
         {/* <div className="px-10">

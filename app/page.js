@@ -1,5 +1,4 @@
 import App from "@/components/App";
-import { Grid } from "@mui/material";
 
 export default function Home() {
   return (

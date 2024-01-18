@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { UserButton, currentUser } from "@clerk/nextjs";
+//import { UserButton, currentUser } from "@clerk/nextjs";
 
 async function App() {
-  const user = await currentUser();
+  const user = "234";
 
   const date = new Date();
 
@@ -23,10 +23,11 @@ async function App() {
               <div className="flex flex-row gap-2 justify-between items-center w-full text-2xl ">
                 <p className="text-sm md:text-xl">{currentDate}</p>
                 <div className="flex flex-row justify-center items-center gap-2">
-                  <p className="">{user.firstName}</p>
+                  profile
+                  {/* <p className="">{user.firstName}</p>
                   <div>
                     <UserButton afterSignOutUrl="/" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

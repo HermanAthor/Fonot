@@ -1,3 +1,4 @@
+"use client";
 import { ExpandMore } from "@mui/icons-material";
 import { Box, Card, CardActions, IconButton, TextField } from "@mui/material";
 import React, { useState } from "react";

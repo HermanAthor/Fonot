@@ -1,12 +1,13 @@
 "use client";
-import { UserButton, useAuth, useUser } from "@clerk/nextjs";
+//import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 import { Avatar } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import Search from "./Search";
 
 function NavHeader({ setSearch }) {
-  const { isLoaded, isSignedIn, user } = useUser();
+  //const { isLoaded, isSignedIn, user } = useUser();
+  const user = "234";
 
   const date = new Date();
 
@@ -31,7 +32,8 @@ function NavHeader({ setSearch }) {
 
           <div className="flex flex-row justify-center items-center gap-2">
             <div className=" md:hidden">
-              <UserButton afterSignOutUrl="/" />
+              profile
+              {/* <UserButton afterSignOutUrl="/" /> */}
             </div>
           </div>
         </div>

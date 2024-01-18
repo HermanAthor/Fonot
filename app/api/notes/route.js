@@ -1,18 +1,15 @@
 import { mongodb } from "@/app/libs/mongodb";
 import newNotes from "@/app/models/newNoteModel";
-import Notes from "@/app/models/notes";
-import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req, res) {
-  const user = await currentUser();
-
-  if (!user) {
-    return res?.status(400).json({ error: "Missing userId." });
-  }
+// //Post route for all the notes
+// export async function POST(req) {}
+// //GET route to get the notes from mongodb
+export async function GET() {
   try {
     await mongodb();
     const notes = await newNotes.find({});
+    console.log(notes);
     return NextResponse.json({
       results: notes,
       success: true,

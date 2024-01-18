@@ -1,7 +1,7 @@
 "use client";
 import AppLayout from "@/components/Layouts/AppLayout";
 import NavHeader from "@/components/NavHeader";
-import { useUser } from "@clerk/nextjs";
+//import { useUser } from "@clerk/nextjs";
 import {
   Avatar,
   FormControl,
@@ -20,8 +20,8 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
-  const { user } = useUser();
-  const userId = user?.id;
+  // const { user } = useUser();
+  const userId = "234";
 
   const router = useRouter();
 
@@ -30,7 +30,6 @@ function CreateNote() {
     console.log(newNote);
     console.log(newNoteTitle);
     console.log(category);
-    console.log("User from the client Side:", user);
 
     try {
       const res = await fetch("api/creatNote", {

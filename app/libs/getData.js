@@ -1,7 +1,7 @@
-import { currentUser } from "@clerk/nextjs";
+//import { currentUser } from "@clerk/nextjs";
 
-export const getNoteData = async () => {
-  const res = await fetch("http://localhost:3000/api/getNote");
+export const getNoteData = async (url) => {
+  const res = await fetch(url);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -15,7 +15,7 @@ export const getNoteData = async () => {
 export const getNoteDataDetails = async (noteId) => {
   console.log("NOTEID", noteId);
   try {
-    const user = await currentUser();
+    const user = "234";
     if (!user) {
       throw new Error("Missing userId.");
     }

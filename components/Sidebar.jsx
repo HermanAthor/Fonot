@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function Sidebar() {
   const [notesList, setNotesList] = useState([]);
   useEffect(() => {
-    fetch("/api/getNote")
+    fetch("/api/notes")
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
