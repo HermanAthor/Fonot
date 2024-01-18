@@ -32,7 +32,7 @@ function CreateNote() {
     console.log(category);
 
     try {
-      const res = await fetch("api/creatNote", {
+      const res = await fetch("/api/notes", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
