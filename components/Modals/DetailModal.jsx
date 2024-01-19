@@ -12,6 +12,7 @@ import {
 import EditNote from "../EditNote";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function DetailModal({ isOpen, handleClose, note }) {
   const router = useRouter();
@@ -44,22 +45,34 @@ function DetailModal({ isOpen, handleClose, note }) {
   };
 
   // delete Note function
+  // const handleDelete = async () => {
+  //   const confirmed = confirm("Are you sure?");
+
+  //   if (confirmed) {
+  //     const res = await fetch(
+  //       `http://localhost:3000/api/deleteNote?id=${_id}`,
+  //       {
+  //         method: "DELETE",
+  //       }
+  //     );
+
+  //     if (res.ok) {
+  //       router.refresh();
+  //       handleClose();
+  //       router.refresh();
+  //     }
+  //   }
+  // };
+
   const handleDelete = async () => {
-    const confirmed = confirm("Are you sure?");
-
-    if (confirmed) {
-      const res = await fetch(
-        `http://localhost:3000/api/deleteNote?id=${_id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (res.ok) {
-        router.refresh();
-        handleClose();
-        router.refresh();
-      }
+    confirm("Are you sure?");
+    try {
+      await axios.delete("/api/notes", { data: { _id } });
+      handleClose();
+      router.push("/allNotes");
+    } catch (error) {
+      console.log(error);
+      alert("An error occured while deleting your note");
     }
   };
 
@@ -70,6 +83,7 @@ function DetailModal({ isOpen, handleClose, note }) {
         handleClose={handleClose}
         title={newNoteTitle}
         handleDelete={handleDelete}
+        id={_id}
       >
         <div>
           <div>{newNoteTitle}</div>

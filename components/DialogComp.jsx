@@ -8,6 +8,7 @@ import {
   Paper,
 } from "@mui/material";
 import React from "react";
+import RemoveBtn from "./RemoveButton";
 
 function DialogComp({
   children,
@@ -16,6 +17,7 @@ function DialogComp({
   title,
   subtitle,
   handleDelete,
+  id,
 }) {
   return (
     <>
@@ -34,7 +36,7 @@ function DialogComp({
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleDelete}>Delete</Button>
+            <RemoveBtn handleClose={handleClose} id={id} />
           </DialogActions>
         </Paper>
       </Dialog>

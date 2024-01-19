@@ -1,12 +1,13 @@
-import { mongodb } from "@/app/libs/mongodb";
+//import { mongodb } from "@/app/libs/mongodb";
+import { mongodbConnect } from "@/app/libs/mongodbConnect";
 import newNotes from "@/app/models/newNoteModel";
 import { NextResponse } from "next/server";
-
+import { ObjectId } from "mongodb";
 // //Post route for all the notes
 export async function POST(req) {
   const { userId, newNoteTitle, newNote, category } = await req.json();
   try {
-    await mongodb();
+    await mongodbConnect();
     const notesList = new newNotes({
       userId,
       newNoteTitle,
@@ -30,9 +31,8 @@ export async function POST(req) {
 // //GET route to get the notes from mongodb
 export async function GET() {
   try {
-    await mongodb();
+    await mongodbConnect();
     const notes = await newNotes.find({});
-    console.log(notes);
     return NextResponse.json({
       results: notes,
       success: true,
@@ -41,6 +41,26 @@ export async function GET() {
     console.error("An error occurred:", error);
     return NextResponse.json({
       results: ["An error occurred while fetching notes"],
+      success: false,
+    });
+  }
+}
+// Deleting note from the database
+
+export async function DELETE(req) {
+  const id = req.nextUrl.searchParams.get("id");
+  try {
+    await mongodbConnect();
+
+    await newNotes.findByIdAndDelete(id);
+    return NextResponse.json({
+      results: ["Note removed from list"],
+      success: true,
+    });
+  } catch (error) {
+    console.log("An error occured: ", error);
+    return NextResponse.json({
+      results: ["An error occured while deleting your note"],
       success: false,
     });
   }

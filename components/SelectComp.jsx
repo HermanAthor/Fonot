@@ -9,7 +9,7 @@ function SelectComp({ notes }) {
           <InputLabel id="note-titles">select note title</InputLabel>
           <Select>
             {notes.map((note) => (
-              <MenuItem>{note.newNoteTitle}</MenuItem>
+              <MenuItem key={note._id}>{note.newNoteTitle}</MenuItem>
             ))}
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
