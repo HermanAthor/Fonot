@@ -29,7 +29,6 @@ function AllNotes() {
   //handling the modal state ...
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
-  console.log("Selected Note: ", selectedNote);
 
   const handleEdit = () => {
     // a function that determines if i can show the edit functionallity or not*
@@ -44,7 +43,6 @@ function AllNotes() {
   const ModalOpen = (note) => {
     setIsOpen(true);
     setSelectedNote(note);
-    console.log("Note", note);
   };
 
   useEffect(() => {
@@ -57,8 +55,6 @@ function AllNotes() {
       })
       .catch((error) => console.error("Error fetching notes:", error));
   }, []);
-
-  console.log("Notes from server", notes);
 
   const filteredNotes = notes?.filter((filteredNote) => {
     if (search === "") {

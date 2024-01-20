@@ -16,7 +16,7 @@ function DialogComp({
   handleClose,
   title,
   subtitle,
-  handleDelete,
+  handleSubmit,
   id,
 }) {
   return (
@@ -35,6 +35,7 @@ function DialogComp({
             {children}
           </DialogContent>
           <DialogActions>
+            <Button onClick={handleSubmit}>Update</Button>
             <Button onClick={handleClose}>Cancel</Button>
             <RemoveBtn handleClose={handleClose} id={id} />
           </DialogActions>

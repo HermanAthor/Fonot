@@ -1,8 +1,7 @@
-//import { mongodb } from "@/app/libs/mongodb";
 import { mongodbConnect } from "@/app/libs/mongodbConnect";
 import newNotes from "@/app/models/newNoteModel";
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
+
 // //Post route for all the notes
 export async function POST(req) {
   const { userId, newNoteTitle, newNote, category } = await req.json();

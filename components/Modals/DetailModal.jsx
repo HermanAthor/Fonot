@@ -25,13 +25,14 @@ function DetailModal({ isOpen, handleClose, note }) {
   // edit/update Note function
   const handleSubmit = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/${_id}`, {
+      const res = await fetch(`/api/notes/${_id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ editNote, editNoteTitle }),
       });
+      alert("Note updated");
 
       if (!res.ok) {
         throw new Error("Failed to update topic");
@@ -43,26 +44,6 @@ function DetailModal({ isOpen, handleClose, note }) {
       console.log(error);
     }
   };
-
-  // delete Note function
-  // const handleDelete = async () => {
-  //   const confirmed = confirm("Are you sure?");
-
-  //   if (confirmed) {
-  //     const res = await fetch(
-  //       `http://localhost:3000/api/deleteNote?id=${_id}`,
-  //       {
-  //         method: "DELETE",
-  //       }
-  //     );
-
-  //     if (res.ok) {
-  //       router.refresh();
-  //       handleClose();
-  //       router.refresh();
-  //     }
-  //   }
-  // };
 
   const handleDelete = async () => {
     confirm("Are you sure?");
@@ -84,10 +65,11 @@ function DetailModal({ isOpen, handleClose, note }) {
         title={newNoteTitle}
         handleDelete={handleDelete}
         id={_id}
+        handleSubmit={handleSubmit}
       >
         <div>
-          <div>{newNoteTitle}</div>
-          <div>{category}</div>
+          {/* <div>{newNoteTitle}</div>
+          <div>{category}</div> */}
           <div>
             <Card sx={{ maxWidth: 845, bgcolor: "#c8ccbc", p: "10px" }}>
               <Box className="">
