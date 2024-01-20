@@ -19,6 +19,7 @@ function DetailModal({ isOpen, handleClose, note }) {
   const { newNoteTitle, newNote, category, _id } = note;
   const [editNoteTitle, setEditNoteTitle] = useState(newNoteTitle);
   const [editNote, setEditNote] = useState(newNote);
+  const [newCategory, setNewCategory] = useState(category);
 
   const italic = "italic";
 
@@ -30,7 +31,7 @@ function DetailModal({ isOpen, handleClose, note }) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ editNote, editNoteTitle }),
+        body: JSON.stringify({ editNote, editNoteTitle, newCategory }),
       });
       alert("Note updated");
 
@@ -39,7 +40,7 @@ function DetailModal({ isOpen, handleClose, note }) {
       }
 
       router.refresh();
-      router.push("/");
+      router.push("/allNotes");
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +69,7 @@ function DetailModal({ isOpen, handleClose, note }) {
         handleSubmit={handleSubmit}
       >
         <div>
-          {/* <div>{newNoteTitle}</div>
-          <div>{category}</div> */}
+          <div>{newCategory}</div>
           <div>
             <Card sx={{ maxWidth: 845, bgcolor: "#c8ccbc", p: "10px" }}>
               <Box className="">
@@ -97,6 +97,36 @@ function DetailModal({ isOpen, handleClose, note }) {
                   multiline
                   rows={4}
                 />
+                <div className="flex flex-col gap-2">
+                  <div>Choose new category</div>
+                  <div className="flex  flex-col gap-2">
+                    <span
+                      className=" bg-blue-400 rounded-full px-3 cursor-pointer w-fit"
+                      onClick={() => setNewCategory("reminders")}
+                    >
+                      Reminders
+                    </span>
+                    <span
+                      className=" bg-yellow-400 rounded-full px-3  cursor-pointer w-fit"
+                      onClick={() => setNewCategory("work")}
+                    >
+                      {" "}
+                      Work
+                    </span>
+                    <span
+                      className=" bg-red-400 rounded-full px-3 cursor-pointer w-fit"
+                      onClick={() => setNewCategory("todos")}
+                    >
+                      todos
+                    </span>
+                    <span
+                      className=" bg-green-400 rounded-full px-3 cursor-pointer w-fit"
+                      onClick={() => setNewCategory("money")}
+                    >
+                      Money
+                    </span>
+                  </div>
+                </div>
               </Box>
               <CardActions disableSpacing>
                 {/* <IconButton aria-label="add to favorites">

@@ -6,10 +6,25 @@ export async function PUT(request, { params }) {
   const { id } = params;
   console.log(id);
   try {
-    const { newTitle: editNoteTitle, newDescription: editTitle } =
-      await request.json();
+    const { editNoteTitle, editNote, newCategory } = await request.json();
+    console.log("Edited Note", editNoteTitle);
+    console.log("Edited Note Title", editNote);
+    console.log("Category", newCategory);
     await mongodbConnect();
-    await newNotes.findByIdAndUpdate(id, { editNoteTitle, editTitle });
+    await newNotes.findByIdAndUpdate(
+      id,
+      {
+        newNoteTitle: editNoteTitle,
+        newNote: editNote,
+        category: newCategory,
+      },
+      { new: true }
+    );
+    await newNotes.findByIdAndUpdate(id, {
+      editNoteTitle,
+      editNote,
+      newCategory,
+    });
     return NextResponse.json({ message: "Note updated" }, { status: 200 });
   } catch (error) {
     console.log("Error updating the note", error);
