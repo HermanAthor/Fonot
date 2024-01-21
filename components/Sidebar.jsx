@@ -6,6 +6,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import React, { useEffect, useState } from "react";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
 
 export default function Sidebar() {
   const [notesList, setNotesList] = useState([]);
@@ -72,7 +73,7 @@ export default function Sidebar() {
             {notesList.map((note) => (
               <Link href={`/allNotes/${note._id}`}>
                 <li key={note._id} className="p-2">
-                  {note.newNoteTitle}
+                  {note.newNoteTitle || <Skeleton />}
                 </li>
               </Link>
             ))}

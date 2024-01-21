@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -29,8 +29,10 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 //   }),
 // }));
 
-export default function NoteDetails() {
+export default function NoteDetails({ noteId }) {
   const [edit, setEdit] = useState(false);
+  const [note, setNote] = useState([]);
+  console.log(noteId);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,18 +46,25 @@ export default function NoteDetails() {
   const handleClose = () => {
     setIsOpen(false);
   };
-
+  useEffect(() => {
+    fetch(`/api/notes/${noteId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log(data.results);
+          setNote(data);
+        }
+      })
+      .catch((error) => console.error("Error fetching notes:", error));
+  }, []);
+  console.log(note);
   return (
     <AppLayout>
       <div className="flex flex-col items-center justify-center overflow-y-scroll max-h-screen w-full no-scrollbar">
         <div className=" overflow-y-auto">
           <Card sx={{ maxWidth: 845 }} className="">
             <CardHeader
-              avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  H
-                </Avatar>
-              }
+              avatar={<Avatar sx={{ bgcolor: red[500] }}>H</Avatar>}
               action={
                 <IconButton aria-label="settings">
                   <DeleteOutlinedIcon
