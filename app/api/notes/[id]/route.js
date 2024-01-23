@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function PUT(request, { params }) {
   const { id } = params;
   try {
-    const { editNoteTitle, editNote, newCategory } = await request.json();
+    const { editNoteTitle, editNote, newCategory, like, italic } =
+      await request.json();
     await mongodbConnect();
     await newNotes.findByIdAndUpdate(
       id,
@@ -13,6 +14,8 @@ export async function PUT(request, { params }) {
         newNoteTitle: editNoteTitle,
         newNote: editNote,
         category: newCategory,
+        isItalic: italic,
+        isLiked: like,
       },
       { new: true }
     );
@@ -27,7 +30,7 @@ export async function GET(request, { params }) {
   console.log(id);
   try {
     await mongodbConnect();
-    const note = await newNotes.find({});
+    const note = await newNotes.find({ _id: id });
     console.log(note);
     return NextResponse.json({ results: note, status: 200 });
   } catch (error) {

@@ -4,6 +4,7 @@ import AppLayout from "@/components/Layouts/AppLayout";
 import DetailModal from "@/components/Modals/DetailModal";
 import NavHeader from "@/components/NavHeader";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Avatar,
   Card,
@@ -94,13 +95,13 @@ function AllNotes() {
           <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-3">
             {notes &&
               filteredNotes.map((note) => {
-                const { category, newNoteTitle, newNote, _id } = note;
+                const { category, newNoteTitle, newNote, _id, isLiked } = note;
                 const avatarBg = getBgColor(category);
                 const cardBg = getCardBgColor(category);
 
                 return (
                   <>
-                    <Draggable
+                    {/* <Draggable
                       axis="both"
                       handle=".handle"
                       defaultPosition={{ x: 0, y: 0 }}
@@ -108,35 +109,36 @@ function AllNotes() {
                       grid={[25, 25]}
                       scale={1}
                       key={_id}
+                    > */}
+                    <Card
+                      key={_id}
+                      className={`handle ${cardBg} dark:bg-[#a3a8aa]`}
+                      onClick={() => ModalOpen(note)}
+                      sx={{ bgcolor: cardBg }}
                     >
-                      <Card
-                        key={_id}
-                        className={`handle ${cardBg} dark:bg-[#515354]`}
-                        onClick={() => ModalOpen(note)}
-                        sx={{ bgcolor: cardBg }}
-                      >
-                        <CardHeader
-                          avatar={
-                            <Avatar
-                              sx={{ bgcolor: avatarBg }}
-                              aria-label="category"
-                            >
-                              {category[0].toUpperCase()}
-                            </Avatar>
-                          }
-                          title={newNoteTitle}
-                          subheader={category}
-                        />
-                        <CardContent>
-                          <Typography variant="body2">{newNote}</Typography>
-                        </CardContent>
-                        <CardActions>
-                          <IconButton>
-                            <MoreHorizOutlinedIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Draggable>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: avatarBg }}
+                            aria-label="category"
+                          >
+                            {category[0].toUpperCase()}
+                          </Avatar>
+                        }
+                        title={newNoteTitle}
+                        subheader={category}
+                      />
+                      <CardContent>
+                        <Typography variant="body2">{newNote}</Typography>
+                      </CardContent>
+                      <CardActions>
+                        <IconButton>
+                          <MoreHorizOutlinedIcon />
+                        </IconButton>
+                        {isLiked && <FavoriteIcon />}
+                      </CardActions>
+                    </Card>
+                    {/* </Draggable> */}
                   </>
                 );
               })}

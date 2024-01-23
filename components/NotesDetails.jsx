@@ -57,7 +57,7 @@ export default function NoteDetails({ noteId }) {
       })
       .catch((error) => console.error("Error fetching notes:", error));
   }, []);
-  console.log(note);
+  console.log(note.newNote);
   return (
     <AppLayout>
       <div className="flex flex-col items-center justify-center overflow-y-scroll max-h-screen w-full no-scrollbar">

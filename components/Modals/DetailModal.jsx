@@ -13,6 +13,8 @@ import EditNote from "../EditNote";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import FormatItalicOutlinedIcon from "@mui/icons-material/FormatItalicOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function DetailModal({ isOpen, handleClose, note }) {
   const router = useRouter();
@@ -20,8 +22,8 @@ function DetailModal({ isOpen, handleClose, note }) {
   const [editNoteTitle, setEditNoteTitle] = useState(newNoteTitle);
   const [editNote, setEditNote] = useState(newNote);
   const [newCategory, setNewCategory] = useState(category);
-
-  const italic = "italic";
+  const [like, setLike] = useState(false);
+  const [italic, setItalic] = useState(false);
 
   // edit/update Note function
   const handleSubmit = async () => {
@@ -31,7 +33,13 @@ function DetailModal({ isOpen, handleClose, note }) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ editNote, editNoteTitle, newCategory }),
+        body: JSON.stringify({
+          editNote,
+          editNoteTitle,
+          newCategory,
+          italic,
+          like,
+        }),
       });
       alert("Note updated");
 
@@ -97,9 +105,9 @@ function DetailModal({ isOpen, handleClose, note }) {
                   multiline
                   rows={4}
                 />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col  gap-2">
                   <div>Choose new category</div>
-                  <div className="flex  flex-col gap-2">
+                  <div className="flex  flex-col gap-2 md:flex-row">
                     <span
                       className=" bg-blue-400 rounded-full px-3 cursor-pointer w-fit"
                       onClick={() => setNewCategory("reminders")}
@@ -129,7 +137,7 @@ function DetailModal({ isOpen, handleClose, note }) {
                 </div>
               </Box>
               <CardActions disableSpacing>
-                {/* <IconButton aria-label="add to favorites">
+                <IconButton aria-label="add to favorites">
                   <FavoriteIcon
                     onClick={() => setLike((prev) => !prev)}
                     className={`${like ? " text-gray-700" : "text-gray-400"}`}
@@ -139,7 +147,7 @@ function DetailModal({ isOpen, handleClose, note }) {
                   <FormatItalicOutlinedIcon
                     onClick={() => setItalic((prev) => !prev)}
                   />
-                </IconButton> */}
+                </IconButton>
                 <IconButton aria-label="share">
                   <MoreVertIcon />
                 </IconButton>

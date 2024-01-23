@@ -24,6 +24,14 @@ const newNotesSchema = new Schema(
       type: String,
       required: false,
     },
+    isLiked: {
+      type: Boolean,
+      required: false,
+    },
+    isItalic: {
+      type: Boolean,
+      required: false,
+    },
   },
   { timestamps: true }
 );
