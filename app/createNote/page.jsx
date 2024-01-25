@@ -1,6 +1,8 @@
 "use client";
+import CreateReceipe from "@/components/CreateReceipe";
 import AppLayout from "@/components/Layouts/AppLayout";
 import NavHeader from "@/components/NavHeader";
+import { Button } from "@/components/ui/button";
 //import { useUser } from "@clerk/nextjs";
 import {
   Avatar,
@@ -20,6 +22,7 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
+
   // const { user } = useUser();
   const userId = "234";
 
@@ -110,10 +113,11 @@ function CreateNote() {
             </RadioGroup>
           </FormControl>
           <div>{data && data.map((error) => <div>{error}</div>)}</div>
-          <button className="px-10 py-3 bg-gray-300 rounded-3xl hover:bg-gray-500 text-xl text-slate-600 hover:text-gray-300">
-            Submit
-          </button>
+          <Button type="submit" className="">
+            Create Note
+          </Button>
         </form>
+        <CreateReceipe />
       </div>
     </AppLayout>
   );

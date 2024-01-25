@@ -57,6 +57,18 @@ export default function Sidebar() {
               </h6>
             </div>
           </Link>
+          <Link href={"/recipes"}>
+            <div className="flex items-center hover:bg-[#e8edd5] p-2 flex-col md:flex-row justify-center align-middle">
+              <SubjectOutlinedIcon
+                sx={{ fontSize: { xs: "60px", md: "40px" } }}
+                className="text-amber-600 l"
+              />
+              <h6 className="ml-2 text-lg md:text-2xl">
+                {" "}
+                <span className="hidden md:inline">Recipes</span>
+              </h6>
+            </div>
+          </Link>
           <Link href={"/createNote"}>
             <div className="flex items-center hover:bg-[#e8edd5] p-2 flex-col md:flex-row justify-center align-middle">
               <AddCircleOutlineOutlinedIcon
@@ -69,7 +81,7 @@ export default function Sidebar() {
               </h6>
             </div>
           </Link>
-          <ul className="hidden overflow-y-auto md:flex md:flex-grow flex-col">
+          {/* <ul className="hidden overflow-y-auto md:flex md:flex-grow flex-col">
             {notesList.map((note) => (
               <Link href={`/allNotes/${note._id}`}>
                 <li key={note._id} className="p-2">
@@ -77,7 +89,7 @@ export default function Sidebar() {
                 </li>
               </Link>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </Box>
     </Grid>

@@ -11,7 +11,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Container,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -120,7 +119,7 @@ function AllNotes() {
                         avatar={
                           <Avatar
                             sx={{ bgcolor: avatarBg }}
-                            aria-label="category"
+                            ariaLabel="category"
                           >
                             {category[0].toUpperCase()}
                           </Avatar>
