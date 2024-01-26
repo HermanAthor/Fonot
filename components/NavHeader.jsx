@@ -26,7 +26,7 @@ function NavHeader({ setSearch }) {
     user && (
       <div className="flex justify-center  pt-5 px-5">
         <div className="flex flex-row gap-2 justify-between items-center w-full text-2xl ">
-          <div className="md:hidden">
+          <div className="">
             <Search setSearch={setSearch} />
           </div>
 

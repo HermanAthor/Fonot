@@ -1,8 +1,6 @@
 "use client";
-import DialogComp from "@/components/DialogComp";
-import AppLayout from "@/components/Layouts/AppLayout";
-import DetailModal from "@/components/Modals/DetailModal";
-import NavHeader from "@/components/NavHeader";
+//import DialogComp from "@/components/DialogComp";
+
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -15,11 +13,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Search from "@/components/Search";
 //import { UserButton, useUser } from "@clerk/nextjs";
-import SelectComp from "@/components/SelectComp";
-import Draggable from "react-draggable";
-import { getBgColor, getCardBgColor } from "@/app/libs/dynamicColors";
+import AppLayout from "./Layouts/AppLayout";
+import DetailModal from "./Modals/DetailModal";
+import NavHeader from "./NavHeader";
+import Search from "./Search";
+import SelectComp from "./SelectComp";
+import { getBgColor, getCardBgColor } from "../app/libs/dynamicColors";
 
 function AllNotes() {
   const [notes, setNotes] = useState([]);
@@ -100,15 +100,6 @@ function AllNotes() {
 
                 return (
                   <>
-                    {/* <Draggable
-                      axis="both"
-                      handle=".handle"
-                      defaultPosition={{ x: 0, y: 0 }}
-                      position={null}
-                      grid={[25, 25]}
-                      scale={1}
-                      key={_id}
-                    > */}
                     <Card
                       key={_id}
                       className={`handle ${cardBg} dark:bg-[#a3a8aa]`}
@@ -137,7 +128,6 @@ function AllNotes() {
                         {isLiked && <FavoriteIcon />}
                       </CardActions>
                     </Card>
-                    {/* </Draggable> */}
                   </>
                 );
               })}

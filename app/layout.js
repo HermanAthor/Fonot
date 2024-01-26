@@ -2,6 +2,10 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import "react-loading-skeleton/dist/skeleton.css";
+import "@uploadthing/react/styles.css";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { extractRouterConfig } from "uploadthing/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +17,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+        {children}
+      </body>
     </html>
   );
 }

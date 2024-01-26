@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Tiptap from "./TipTap";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,7 +16,12 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
+import Image from "next/image";
+import ImageUploader from "./ImageUploader";
+
 function CreateReceipe() {
+  const [files, setFiles] = useState([]);
+  console.log(files);
   const formSchema = z.object({
     receipe: z
       .string()
@@ -39,7 +44,7 @@ function CreateReceipe() {
   });
   return (
     <div className="pt-10">
-      <div>Create a recipe</div>
+      <div className="text-2xl mb-4">Create a recipe</div>
       <Form {...form}>
         <form>
           <FormField
@@ -92,6 +97,21 @@ function CreateReceipe() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="receipe"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Recipe</FormLabel>
+                <FormControl>
+                  <ImageUploader files={files} setFiles={setFiles} />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button type="submit" className="my-4">
             Post receipe
           </Button>

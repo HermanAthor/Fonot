@@ -21,7 +21,7 @@ const Tiptap = ({ receipe, onChange }) => {
     },
   });
   return (
-    <div className="flex flex-col justify-stretch min-h-[250px] tex">
+    <div className="flex flex-col justify-stretch min-h-[150px] ">
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>

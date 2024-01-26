@@ -63,9 +63,7 @@ function CreateNote() {
   return (
     <AppLayout>
       <div className=" container p-10 pt-0">
-        <NavHeader />
-
-        <div className="text-3xl mb-4">Create a Note</div>
+        <div className="text-2xl mb-4">Create a Note</div>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-3 justify-start items-start"
