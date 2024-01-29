@@ -1,6 +1,6 @@
 import React from "react";
 import { UploadButton } from "@uploadthing/react";
-function ImageUploader({ files, setFiles, title }) {
+function ThumbnailUploader({ files, setFiles, title }) {
   return (
     <>
       {files.length === 0 ? (
@@ -8,7 +8,7 @@ function ImageUploader({ files, setFiles, title }) {
           <p>{title}</p>
           <div className="flex justify-start items-start">
             <UploadButton
-              endpoint="imageUploader"
+              endpoint="thumbnailUplader"
               onClientUploadComplete={(res) => {
                 setFiles(res);
                 console.log("Files: ", res);
@@ -54,4 +54,4 @@ function ImageUploader({ files, setFiles, title }) {
   );
 }
 
-export default ImageUploader;
+export default ThumbnailUploader;

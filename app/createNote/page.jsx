@@ -1,4 +1,5 @@
 "use client";
+import { Chatbot } from "@/components/Chatbot";
 import CreateReceipe from "@/components/CreateReceipe";
 import AppLayout from "@/components/Layouts/AppLayout";
 import NavHeader from "@/components/NavHeader";
@@ -116,6 +117,10 @@ function CreateNote() {
           </Button>
         </form>
         <CreateReceipe />
+        {/* <div>
+          <div>Get help with recipe ideas</div>
+          <Chatbot />
+        </div> */}
       </div>
     </AppLayout>
   );
