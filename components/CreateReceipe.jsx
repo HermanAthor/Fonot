@@ -19,6 +19,8 @@ import ImageUploader from "./ImageUploader";
 import ThumbnailUploader from "./ThumbnailUploader";
 import { DietOptions, PrivateOrPublic } from "./RadioButtons";
 import { useRouter } from "next/navigation";
+import { useToast } from "./ui/use-toast";
+import { ToastAction } from "./ui/toast";
 
 function CreateReceipe() {
   const [files, setFiles] = useState([]);
@@ -26,6 +28,7 @@ function CreateReceipe() {
   const [isPublic, setIsPublic] = useState(false);
   const [dietOption, setDietOptions] = useState("");
   const router = useRouter();
+  const { toast } = useToast();
 
   function stringToBool(value) {
     if (value.toLowerCase() === "true") return true;
@@ -49,31 +52,46 @@ function CreateReceipe() {
       message: "Its better when your title is longer than 5 characters",
     }),
     duration: z.string().min(1, {
-      message: "Something is not right",
+      message: "You need to tell us how long it takes to prepare the meal",
     }),
   });
   const form = useForm({
     resolver: zodResolver(formSchema),
     mode: "onChange",
     defaultValues: {
-      receipe: "",
-      receipeTitle: "",
-      receipeDesc: "",
+      recipe: "",
+      recipeTitle: "",
+      recipeDesc: "",
       duration: 0,
     },
   });
+  const { getValues } = form;
+
   // All the form data
   const formData = {
     files: files,
     thumbnail: thumbnail,
     isPublic: isPublic,
     dietOption: dietOption,
+    recipe: getValues("recipe"),
+    recipeTitle: getValues("recipeTitle"),
+    recipeDesc: getValues("recipeDesc"),
+    recipeDuration: getValues("duration"),
+  };
+  const alertAfterPost = () => {
+    toast({
+      title: "Recipe created ",
+      description: "Congrats you have shared your recipe with the foodies",
+      action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
+    });
   };
   // Function to post recipe to the database
 
-  const postRecipe = () => {
-    console.log("The recipe", files, thumbnail, isPublic, dietOption);
-    router.push("/allNotes");
+  const postRecipe = (e) => {
+    e.preventDefault();
+    alertAfterPost();
+    console.log("The recipe", formData);
+    // router.push("/allNotes");
   };
   return (
     <div className="pt-10">
@@ -82,13 +100,13 @@ function CreateReceipe() {
         <form onSubmit={postRecipe}>
           <FormField
             control={form.control}
-            name="receipeTitle"
+            name="recipeTitle"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Recipe Title</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Receipe title"
+                    placeholder="Recipe title"
                     receipe={field.value}
                     onChange={field.onChange}
                   />
@@ -100,13 +118,13 @@ function CreateReceipe() {
           />
           <FormField
             control={form.control}
-            name="receipeDesc"
+            name="recipeDesc"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Recipe description</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Receipe description"
+                    placeholder="Recipe description"
                     receipe={field.value}
                     onChange={field.onChange}
                   />
@@ -168,7 +186,7 @@ function CreateReceipe() {
           />
           <FormField
             control={form.control}
-            name="recipe"
+            name="dietOptions"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Choose diet options</FormLabel>
