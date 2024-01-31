@@ -1,6 +1,9 @@
 import React from "react";
 import { UploadButton } from "@uploadthing/react";
 function ThumbnailUploader({ files, setFiles, title }) {
+  const deleteUploadedImage = () => {
+    setFiles([]);
+  };
   return (
     <>
       {files.length === 0 ? (
@@ -36,11 +39,7 @@ function ThumbnailUploader({ files, setFiles, title }) {
                 className="bg-no-repeat h-36 md:h-60 w-60 rounded-xl relative"
               >
                 <div
-                  onClick={() =>
-                    alert(
-                      "Sorry you can't undo this at the moment but we are working on it"
-                    )
-                  }
+                  onClick={deleteUploadedImage}
                   className=" text-center absolute top-1 right-1 bg-red-300 hover:bg-red-500 cursor-pointer rounded-full px-2"
                 >
                   x
