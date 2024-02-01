@@ -19,8 +19,7 @@ import ImageUploader from "./ImageUploader";
 import ThumbnailUploader from "./ThumbnailUploader";
 import { DietOptions, PrivateOrPublic } from "./RadioButtons";
 import { useRouter } from "next/navigation";
-import { useToast } from "./ui/use-toast";
-import { ToastAction } from "./ui/toast";
+import { toast } from "sonner";
 
 function CreateReceipe() {
   const [files, setFiles] = useState([]);
@@ -28,7 +27,6 @@ function CreateReceipe() {
   const [isPublic, setIsPublic] = useState(false);
   const [dietOption, setDietOptions] = useState("");
   const router = useRouter();
-  const { toast } = useToast();
 
   function stringToBool(value) {
     if (value.toLowerCase() === "true") return true;
@@ -67,8 +65,11 @@ function CreateReceipe() {
   });
   const { getValues } = form;
 
+  const userId = "1234";
+
   // All the form data
   const formData = {
+    userId: userId,
     files: files,
     thumbnail: thumbnail,
     isPublic: isPublic,
@@ -79,25 +80,50 @@ function CreateReceipe() {
     recipeDuration: getValues("duration"),
   };
   const alertAfterPost = () => {
-    toast({
-      title: "Recipe created ",
-      description: "Congrats you have shared your recipe with the foodies",
-      action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
+    toast("Recipe has been created", {
+      description:
+        "Congradulations!! You have chosen to share some your meals with us and your friends",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
     });
   };
   // Function to post recipe to the database
+  const handleSubmit = async (e, data) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
+      const { results } = res.json();
+      console.log(results);
+      if (res.ok) {
+        alertAfterPost();
+        router.push("/allNotes");
+      } else {
+        throw new Error("Failed to create a topic");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const postRecipe = (e) => {
     e.preventDefault();
     alertAfterPost();
     console.log("The recipe", formData);
-    // router.push("/allNotes");
+    // router.push("/allNotes");//
   };
   return (
     <div className="pt-10">
       <div className="text-2xl mb-4">Create a recipe</div>
       <Form {...form}>
-        <form onSubmit={postRecipe}>
+        <form onSubmit={handleSubmit}>
           <FormField
             control={form.control}
             name="recipeTitle"
