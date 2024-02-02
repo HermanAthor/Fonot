@@ -26,7 +26,7 @@ const navData = [
 
 function BottomNavigation() {
   return (
-    <div className="md:hidden flex flex-row justify-between items-center px-3 py-2 fixed bottom-0 w-full bg-slate-700">
+    <div className="md:hidden flex flex-row justify-between items-center px-3 py-2 fixed bottom-0 w-full bg-slate-700 z-30">
       {navData.map((item) => (
         <Link key={item.title} href={item.link}>
           <div className="flex justify-evenly items-center flex-col">

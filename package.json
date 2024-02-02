@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.2",
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "^5.14.3",
+    "@mui/joy": "^5.0.0-beta.25",
     "@mui/material": "^5.14.5",
     "@nlux/openai-react": "^0.10.0",
     "@nlux/react": "^0.10.0",
