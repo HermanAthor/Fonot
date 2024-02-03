@@ -5,9 +5,7 @@ import React from "react";
 function RecipesPage() {
   return (
     <AppLayout>
-      <div className="flex flex-wrap justify-center items-center md:gap-3 md:grid md:grid-cols-3">
-        <RecipeCard />
-        <RecipeCard />
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid">
         <RecipeCard />
       </div>
     </AppLayout>

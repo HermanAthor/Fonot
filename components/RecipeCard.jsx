@@ -51,7 +51,7 @@ export default function RecipeCard() {
           <Card
             variant="outlined"
             sx={{
-              minWidth: { md: 500, sm: 300 },
+              minWidth: { md: "100%", sm: 300 },
               "--Card-radius": (theme) => theme.vars.radius.xs,
             }}
           >
