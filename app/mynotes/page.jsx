@@ -174,28 +174,3 @@ function MyNotes() {
 }
 
 export default MyNotes;
-
-/*
-<div
-  key={_id}
-  style={{ backgroundColor: bgColor1 }}
-  className="w-full border-2 p-5 gap-3 mx-3 space-x-4 shadow-lg"
->
-  <div className="flex flex-col justify-start">
-    <div className="flex flex-row gap-2">
-      <Avatar className={`${bgColor}`}>
-        {category[0].toUpperCase()}
-      </Avatar>
-      <div className="flex flex-col">
-        <p>{newNoteTitle}</p>
-        <p>{category}</p>
-      </div>
-    </div>
-    <div className="flex">
-      <p className="leading-relaxed">{newNote}</p>
-    </div>
-  </div>
-</div>
-
-
-*/

@@ -10,7 +10,7 @@ const navData = [
   {
     title: "Personal",
     icon: "/menu-square.svg",
-    link: "/mynotes",
+    link: "/personal",
   },
   {
     title: "Recipes",

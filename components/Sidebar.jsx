@@ -3,23 +3,23 @@ import { Box, Grid, Typography } from "@mui/material";
 import Link from "next/link";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import Image from "next/image";
-import Skeleton from "react-loading-skeleton";
-
+// import Skeleton from "react-loading-skeleton";
+// This side bar is only for md screens and above
 export default function Sidebar() {
-  const [notesList, setNotesList] = useState([]);
-  useEffect(() => {
-    fetch("/api/notes")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setNotesList(data.results);
-        }
-      })
-      .catch((error) => console.error("Error fetching notes:", error));
-  }, []);
+  // const [notesList, setNotesList] = useState([]);
+  // useEffect(() => {
+  //   fetch("/api/notes")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.success) {
+  //         setNotesList(data.results);
+  //       }
+  //     })
+  //     .catch((error) => console.error("Error fetching notes:", error));
+  // }, []);
 
   return (
     <Grid item xs={12} className=" h-screen">
@@ -42,7 +42,7 @@ export default function Sidebar() {
               <h6 className="ml-2 text-lg md:text-2xl">Notes</h6>
             </div>
           </Link>
-          <Link href={"/mynotes"}>
+          <Link href={"/personal"}>
             <div className="flex items-center hover:bg-[#e8edd5] flex-row justify-center align-middle">
               <SubjectOutlinedIcon
                 sx={{ fontSize: { xs: "60px", md: "60px" } }}
@@ -69,15 +69,6 @@ export default function Sidebar() {
               <h6 className="ml-2 text-lg md:text-2xl ">Create</h6>
             </div>
           </Link>
-          {/* <ul className="hidden overflow-y-auto md:flex md:flex-grow flex-col">
-            {notesList.map((note) => (
-              <Link href={`/allNotes/${note._id}`}>
-                <li key={note._id} className="p-2">
-                  {note.newNoteTitle || <Skeleton />}
-                </li>
-              </Link>
-            ))}
-          </ul> */}
         </div>
       </Box>
     </Grid>
