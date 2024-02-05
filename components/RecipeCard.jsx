@@ -13,12 +13,18 @@ import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+//import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlined from "@mui/icons-material/SendOutlined";
 import Face from "@mui/icons-material/Face";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 
+import CommentTextInput from "./CommentTextInput";
+import { Comments } from "./Comments";
+import { useState } from "react";
+
 export default function RecipeCard({ recipeData }) {
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <>
       {recipeData.length === 0 ? (
@@ -103,12 +109,15 @@ export default function RecipeCard({ recipeData }) {
                   sx={{ alignItems: "center", mx: -1 }}
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
-                    <IconButton variant="plain" color="neutral" size="sm">
-                      <FavoriteBorder />
+                    <IconButton
+                      onClick={() => setIsLiked((prev) => !prev)}
+                      variant="plain"
+                      color="neutral"
+                      size="sm"
+                    >
+                      {isLiked ? <FavoriteIcon /> : <FavoriteBorder />}
                     </IconButton>
-                    <IconButton variant="plain" color="neutral" size="sm">
-                      <ModeCommentOutlined />
-                    </IconButton>
+                    <Comments />
                     <IconButton variant="plain" color="neutral" size="sm">
                       <SendOutlined />
                     </IconButton>
@@ -194,12 +203,7 @@ export default function RecipeCard({ recipeData }) {
                   >
                     <Face />
                   </IconButton>
-                  <Input
-                    variant="plain"
-                    size="sm"
-                    placeholder="Add a comment…"
-                    sx={{ flex: 1, px: 0, "--Input-focusedThickness": "0px" }}
-                  />
+                  <CommentTextInput />
                   <Link disabled underline="none" role="button">
                     Post
                   </Link>
