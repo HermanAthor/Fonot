@@ -12,19 +12,14 @@ import IconButton from "@mui/joy/IconButton";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-//import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlined from "@mui/icons-material/SendOutlined";
 import Face from "@mui/icons-material/Face";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
-
 import CommentTextInput from "./CommentTextInput";
 import { Comments } from "./Comments";
-import { useState } from "react";
+import { Like } from "./Like";
 
 export default function RecipeCard({ recipeData }) {
-  const [isLiked, setIsLiked] = useState(false);
   return (
     <>
       {recipeData.length === 0 ? (
@@ -35,6 +30,7 @@ export default function RecipeCard({ recipeData }) {
         <>
           {recipeData?.map((item) => {
             const {
+              _id,
               userId,
               files,
               thumbnail,
@@ -109,14 +105,7 @@ export default function RecipeCard({ recipeData }) {
                   sx={{ alignItems: "center", mx: -1 }}
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
-                    <IconButton
-                      onClick={() => setIsLiked((prev) => !prev)}
-                      variant="plain"
-                      color="neutral"
-                      size="sm"
-                    >
-                      {isLiked ? <FavoriteIcon /> : <FavoriteBorder />}
-                    </IconButton>
+                    <Like item={item} />
                     <Comments />
                     <IconButton variant="plain" color="neutral" size="sm">
                       <SendOutlined />
