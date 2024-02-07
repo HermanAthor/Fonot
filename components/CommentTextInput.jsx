@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Textarea from "@mui/joy/Textarea";
 
 const CommentTextInput = ({ setComment }) => {

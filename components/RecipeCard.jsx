@@ -28,14 +28,8 @@ export default function RecipeCard({ recipeData }) {
   const [userId, setUserId] = useState("");
   const router = useRouter();
 
-  const postComment = (recipe) => {
-    setRecipeId(recipe._id);
-    setUserId(recipe.userId);
-  };
-  console.log(recipeId);
-
   //handlepost comment
-  const handleSubmit = async (recipe) => {
+  const postComment = async (recipe) => {
     setRecipeId(recipe._id);
     setUserId(recipe.userId);
     try {
@@ -147,7 +141,7 @@ export default function RecipeCard({ recipeData }) {
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
                     <Like item={item} />
-                    <Comments />
+                    <Comments recipeSlug={_id} />
                     <IconButton variant="plain" color="neutral" size="sm">
                       <SendOutlined />
                     </IconButton>
@@ -235,7 +229,7 @@ export default function RecipeCard({ recipeData }) {
                   </IconButton>
                   <CommentTextInput setComment={setComment} comment={comment} />
                   <Button
-                    onClick={() => handleSubmit(item)}
+                    onClick={() => postComment(item)}
                     underline="none"
                     role="button"
                   >
