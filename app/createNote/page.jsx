@@ -31,10 +31,6 @@ function CreateNote() {
 
   const handleSubmit = async (e, data) => {
     e.preventDefault();
-    console.log(newNote);
-    console.log(newNoteTitle);
-    console.log(category);
-
     try {
       const res = await fetch("/api/notes", {
         method: "POST",

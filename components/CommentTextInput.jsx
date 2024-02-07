@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Textarea from "@mui/joy/Textarea";
 
-const CommentTextInput = () => {
+const CommentTextInput = ({ setComment }) => {
   return (
     <Textarea
+      onChange={(e) => setComment(e.target.value)}
       multiline={true}
       maxRows="3"
       variant="plain"

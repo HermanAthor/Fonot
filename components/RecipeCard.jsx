@@ -18,8 +18,49 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import CommentTextInput from "./CommentTextInput";
 import { Comments } from "./Comments";
 import { Like } from "./Like";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export default function RecipeCard({ recipeData }) {
+  const [comment, setComment] = useState("");
+  const [recipeId, setRecipeId] = useState("");
+  const [userId, setUserId] = useState("");
+  const router = useRouter();
+
+  const postComment = (recipe) => {
+    setRecipeId(recipe._id);
+    setUserId(recipe.userId);
+  };
+  console.log(recipeId);
+
+  //handlepost comment
+  const handleSubmit = async (recipe) => {
+    setRecipeId(recipe._id);
+    setUserId(recipe.userId);
+    try {
+      const res = await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          comment,
+          userId,
+          recipeId,
+        }),
+      });
+      const { results } = res.json();
+      // setData(results);
+      if (res.ok) {
+        router.push("/recipes");
+      } else {
+        throw new Error("Failed to create a comment");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {recipeData.length === 0 ? (
@@ -192,10 +233,14 @@ export default function RecipeCard({ recipeData }) {
                   >
                     <Face />
                   </IconButton>
-                  <CommentTextInput />
-                  <Link disabled underline="none" role="button">
+                  <CommentTextInput setComment={setComment} comment={comment} />
+                  <Button
+                    onClick={() => handleSubmit(item)}
+                    underline="none"
+                    role="button"
+                  >
                     Post
-                  </Link>
+                  </Button>
                 </CardContent>
               </Card>
             );

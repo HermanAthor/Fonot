@@ -24,6 +24,7 @@ import IconButton from "@mui/joy/IconButton";
 import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import Typography from "@mui/joy/Typography";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import CommentTextInput from "./CommentTextInput";
 
 export function Comments() {
   const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ export function Comments() {
             <DialogDescription>View all comments</DialogDescription>
           </DialogHeader>
           <CommentsSection />
-          <CommentsSection />
+          <CommentTextInput />
           {/* <ProfileForm /> */}
         </DialogContent>
       </Dialog>
@@ -65,6 +66,9 @@ export function Comments() {
         </DrawerHeader>
         <CommentsSection />
         <CommentsSection />
+
+        <CommentTextInput />
+
         {/* <ProfileForm className="px-4" /> */}
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>

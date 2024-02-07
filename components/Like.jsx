@@ -26,7 +26,6 @@ export const Like = ({ item }) => {
     }
   };
   console.log(likedItems);
-  console.log(likedItems.length);
 
   return (
     <IconButton
