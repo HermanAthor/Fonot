@@ -20,7 +20,7 @@ import RecipeCard from "./RecipeCard";
 export function RecipePage() {
   const [recipeData, setRecipeData] = useState([]);
   //   const recipeData = await fetchRecipes();
-  //   console.log(recipeData);
+
   useEffect(() => {
     fetch("/api/recipes", { cache: "no-store" })
       .then((response) => response.json())

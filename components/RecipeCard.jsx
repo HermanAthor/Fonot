@@ -21,17 +21,28 @@ import { Like } from "./Like";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
+import { toast } from "sonner";
+import Textarea from "@mui/joy/Textarea";
 
 export default function RecipeCard({ recipeData }) {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const [comment, setComment] = useState("");
-  const [recipeId, setRecipeId] = useState("");
-  const [userId, setUserId] = useState("");
   const router = useRouter();
+  // notify the user about the comment post
+
+  const alertAfterPost = () => {
+    toast("comment posted", {
+      description: " You have added a comment to this post",
+      action: {
+        label: "Undo",
+        onClick: () => alert("Sorry, but you currently can't undo this"),
+      },
+    });
+  };
 
   //handlepost comment
-  const postComment = async (recipe) => {
-    setRecipeId(recipe._id);
-    setUserId(recipe.userId);
+  const postComment = async (userId, recipeId) => {
     try {
       const res = await fetch("/api/comments", {
         method: "POST",
@@ -44,17 +55,21 @@ export default function RecipeCard({ recipeData }) {
           recipeId,
         }),
       });
-      const { results } = res.json();
-      // setData(results);
-      if (res.ok) {
-        router.push("/recipes");
-      } else {
-        throw new Error("Failed to create a comment");
+
+      if (!res.ok) {
+        throw new Error(`Failed to create a comment. Status: ${res.status}`);
       }
+      alertAfterPost();
+      const { results } = await res.json();
+
+      // setData(results);
+
+      router.push("/recipes");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       {recipeData.length === 0 ? (
@@ -127,12 +142,7 @@ export default function RecipeCard({ recipeData }) {
                 </CardContent>
                 <CardOverflow>
                   <AspectRatio>
-                    <img
-                      src={thumbnail[0].url}
-                      // src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="food"
-                      loading="lazy"
-                    />
+                    <img src={thumbnail[0].url} alt="food" loading="lazy" />
                   </AspectRatio>
                 </CardOverflow>
                 <CardContent
@@ -141,7 +151,14 @@ export default function RecipeCard({ recipeData }) {
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
                     <Like item={item} />
-                    <Comments recipeSlug={_id} />
+                    <Comments
+                      recipeSlug={_id}
+                      isDesktop={isDesktop}
+                      setComment={setComment}
+                      postComment={postComment}
+                      userId={userId}
+                      _id={_id}
+                    />
                     <IconButton variant="plain" color="neutral" size="sm">
                       <SendOutlined />
                     </IconButton>
@@ -153,20 +170,7 @@ export default function RecipeCard({ recipeData }) {
                       gap: 0.5,
                       mx: "auto",
                     }}
-                  >
-                    {/* {[...Array(5)].map((_, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      borderRadius: "50%",
-                      width: `max(${6 - index}px, 3px)`,
-                      height: `max(${6 - index}px, 3px)`,
-                      bgcolor:
-                        index === 0 ? "primary.solidBg" : "background.level3",
-                    }}
-                  />
-                ))} */}
-                  </Box>
+                  ></Box>
                   <Box
                     sx={{
                       width: 0,
@@ -189,17 +193,7 @@ export default function RecipeCard({ recipeData }) {
                   >
                     8.1M Likes
                   </Link>
-                  <Typography fontSize="sm">
-                    {/* <Link
-                  component="button"
-                  color="neutral"
-                  fontWeight="lg"
-                  textColor="text.primary"
-                >
-                  {recipeTitle}
-                </Link>{" "} */}
-                    {recipeDesc}
-                  </Typography>
+                  <Typography fontSize="sm">{recipeDesc}</Typography>
                   <Link
                     component="button"
                     underline="none"
@@ -218,24 +212,30 @@ export default function RecipeCard({ recipeData }) {
                     2 DAYS AGO
                   </Link>
                 </CardContent>
-                <CardContent orientation="horizontal" sx={{ gap: 1 }}>
+                <CommentTextInput
+                  setComment={setComment}
+                  postComment={postComment}
+                  userId={userId}
+                  _id={_id}
+                />
+                {/* <CardContent orientation="horizontal" sx={{ gap: 1 }}>
                   <IconButton
                     size="sm"
                     variant="plain"
                     color="neutral"
                     sx={{ ml: -1 }}
-                  >
+                  >s
                     <Face />
                   </IconButton>
-                  <CommentTextInput setComment={setComment} comment={comment} />
+                  <CommentTextInput setComment={setComment} postComment={postComment}/>
                   <Button
-                    onClick={() => postComment(item)}
+                    onClick={() => postComment(userId, _id)}
                     underline="none"
                     role="button"
                   >
                     Post
                   </Button>
-                </CardContent>
+                </CardContent> */}
               </Card>
             );
           })}

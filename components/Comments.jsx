@@ -1,4 +1,4 @@
-// import { useMediaQuery } from "@/hooks/use-media-query";
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,44 +18,57 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
 import IconButton from "@mui/joy/IconButton";
 import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import Typography from "@mui/joy/Typography";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import CommentTextInput from "./CommentTextInput";
+import useSWR from "swr";
+import { useState } from "react";
 
-export function Comments({ recipeSlug }) {
+const getComments = async () => {
+  try {
+    const response = await fetch("/api/comments", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Failed to fetch comments");
+    }
+    return response.json();
+  } catch (error) {
+    console.log("Error fetching comments", error);
+  }
+};
+
+export function Comments({
+  isDesktop,
+  recipeSlug,
+  setComment,
+  postComment,
+  userId,
+  _id,
+}) {
+  const { data, error, isLoading } = useSWR("/api/comments", getComments);
   const [open, setOpen] = useState(false);
-  const [comments, setComments] = useState([]);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  useEffect(() => {
-    fetch("/api/comments", { cache: "no-cache" })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setComments(data.results);
-        }
-      })
-      .catch((error) => console.error("Error fetching comments:", error));
-  }, []);
-
-  const filteredComments = comments.filter((newComment) => {
+  let comments = [];
+  if (!isLoading && !error) {
+    comments = data?.results;
+  }
+  const filteredComments = comments?.filter((newComment) => {
     return newComment.recipeId === recipeSlug;
   });
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        className="max-h-96 overflow-auto"
+        open={open}
+        onOpenChange={setOpen}
+      >
         <DialogTrigger asChild>
           <IconButton variant="plain" color="neutral" size="sm">
             <ModeCommentOutlined />
           </IconButton>
-          {/* <Button variant="outline">Edit Profile</Button> */}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto">
           <DialogHeader>
             <DialogTitle>Comments {filteredComments.length}</DialogTitle>
             <DialogDescription>View all comments</DialogDescription>
@@ -63,8 +76,28 @@ export function Comments({ recipeSlug }) {
           {filteredComments?.map((data) => {
             return <CommentsSection key={data._id} recipeComments={data} />;
           })}
-          <CommentsSection />
-          <CommentTextInput />
+          {filteredComments?.map((data) => {
+            return <CommentsSection key={data._id} recipeComments={data} />;
+          })}
+          {filteredComments?.map((data) => {
+            return <CommentsSection key={data._id} recipeComments={data} />;
+          })}
+          {filteredComments?.map((data) => {
+            return <CommentsSection key={data._id} recipeComments={data} />;
+          })}
+          {filteredComments?.map((data) => {
+            return <CommentsSection key={data._id} recipeComments={data} />;
+          })}
+          {filteredComments?.map((data) => {
+            return <CommentsSection key={data._id} recipeComments={data} />;
+          })}
+
+          <CommentTextInput
+            setComment={setComment}
+            postComment={postComment}
+            userId={userId}
+            _id={_id}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -85,10 +118,12 @@ export function Comments({ recipeSlug }) {
         {filteredComments?.map((data) => {
           return <CommentsSection key={data._id} recipeComments={data} />;
         })}
-        <CommentsSection />
-        <CommentsSection />
-
-        <CommentTextInput />
+        <CommentTextInput
+          setComment={setComment}
+          postComment={postComment}
+          userId={userId}
+          _id={_id}
+        />
 
         {/* <ProfileForm className="px-4" /> */}
         <DrawerFooter className="pt-2">
