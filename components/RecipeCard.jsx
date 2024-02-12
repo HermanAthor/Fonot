@@ -72,7 +72,7 @@ export default function RecipeCard({ recipeData }) {
 
   return (
     <>
-      {recipeData.length === 0 ? (
+      {recipeData?.length === 0 ? (
         <div className="flex justify-center items-center text-2xl">
           There is nothing to show you here
         </div>

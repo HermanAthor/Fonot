@@ -76,21 +76,6 @@ export function Comments({
           {filteredComments?.map((data) => {
             return <CommentsSection key={data._id} recipeComments={data} />;
           })}
-          {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
-          })}
-          {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
-          })}
-          {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
-          })}
-          {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
-          })}
-          {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
-          })}
 
           <CommentTextInput
             setComment={setComment}
