@@ -19,11 +19,10 @@ import CommentTextInput from "./CommentTextInput";
 import { Comments } from "./Comments";
 import { Like } from "./Like";
 import { useState } from "react";
-import { Button } from "./ui/button";
+
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 import { toast } from "sonner";
-import Textarea from "@mui/joy/Textarea";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");

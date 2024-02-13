@@ -27,7 +27,7 @@ export default function LoadingRecipeCard({ recipeData }) {
               key={index}
               variant="outlined"
               sx={{
-                minWidth: { md: 500, sm: 300 },
+                minWidth: { md: 400, sm: 300 },
                 "--Card-radius": (theme) => theme.vars.radius.xs,
               }}
             >

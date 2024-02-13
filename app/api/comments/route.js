@@ -28,10 +28,37 @@ export async function POST(req) {
   }
 }
 // //GET route to get the notes from mongodb
+// export async function GET() {
+//   try {
+//     await mongodbConnect();
+
+//     const data = await Comments.find({}).sort({ createdAt: -1 });
+//     return NextResponse.json({
+//       results: data,
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.error("An error occurred:", error);
+//     return NextResponse.json({
+//       results: ["An error occurred while fetching comments"],
+//       success: false,
+//     });
+//   }
+// }
+
+let changeStream;
+
 export async function GET() {
   try {
     await mongodbConnect();
-    const data = await Comments.find({});
+    let data = await Comments.find({}).sort({ createdAt: -1 });
+    changeStream = Comments.watch([], { fullDocument: "updateLookup" });
+    changeStream.on("change", async (change) => {
+      if (change.operationType === "insert") {
+        data = await Comments.find({}).sort({ createdAt: -1 });
+      }
+    });
+
     return NextResponse.json({
       results: data,
       success: true,
@@ -44,6 +71,16 @@ export async function GET() {
     });
   }
 }
+
+// Don't forget to close the change stream when it's no longer needed
+// function stopChangeStream() {
+//   if (changeStream) {
+//     changeStream.close();
+//     changeStream = null;
+//   }
+// }
+// stopChangeStream();
+
 // Deleting note from the database
 
 export async function DELETE(req) {

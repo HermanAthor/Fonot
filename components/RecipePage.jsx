@@ -21,19 +21,6 @@ const fetchRecipes = async () => {
 
 export function RecipePage() {
   const { data, error, isLoading } = useSWR("/api/recipes", fetchRecipes);
-  // const [recipeData, setRecipeData] = useState([]);
-  // //   const recipeData = await fetchRecipes();
-
-  // useEffect(() => {
-  //   fetch("/api/recipes", { cache: "no-store" })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.success) {
-  //         setRecipeData(data.results);
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching notes:", error));
-  // }, []);
   if (error) {
     console.log("Error while fetching the recipes", error);
     return (
