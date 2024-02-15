@@ -1,23 +1,23 @@
 import { mongodbConnect } from "@/app/libs/mongodbConnect";
-import Comments from "@/app/models/commentsSchema";
+import Likes from "@/app/models/likesSchema";
+
 //import newNotes from "@/app/models/newNoteModel";
 import { NextResponse } from "next/server";
 
 // //Post route for all the notes
 export async function POST(req) {
-  const { userId, recipeId, comment } = await req.json();
+  const { likedRecipeId, likedRecipeUserId } = await req.json();
   try {
     await mongodbConnect();
-    const commentsList = new Comments({
-      userId,
-      recipeId,
-      comment,
+    const likedList = new Likes({
+      likedRecipeId,
+      likedRecipeUserId,
     });
 
-    await commentsList.save();
-    console.log("comment has been saved");
+    await likedList.save();
+    console.log("like has been saved");
     return NextResponse.json({
-      results: ["Comment has been added to your list"],
+      results: ["like has been added to your list"],
       success: true,
     });
   } catch (error) {
@@ -27,12 +27,12 @@ export async function POST(req) {
     });
   }
 }
-// //GET route to get the notes from mongodb
+//GET route to get the notes from mongodb
 // export async function GET() {
 //   try {
 //     await mongodbConnect();
 
-//     const data = await Comments.find({}).sort({ createdAt: -1 });
+//     const data = await Likes.find({}).sort({ createdAt: -1 });
 //     return NextResponse.json({
 //       results: data,
 //       success: true,
@@ -51,11 +51,11 @@ let changeStream;
 export async function GET() {
   try {
     await mongodbConnect();
-    let data = await Comments.find({}).sort({ createdAt: -1 });
-    changeStream = Comments.watch([], { fullDocument: "updateLookup" });
+    let data = await Likes.find({}).sort({ createdAt: -1 });
+    changeStream = Likes.watch([], { fullDocument: "updateLookup" });
     changeStream.on("change", async (change) => {
       if (change.operationType === "insert") {
-        data = await Comments.find({}).sort({ createdAt: -1 });
+        data = await Likes.find({}).sort({ createdAt: -1 });
       }
     });
 
@@ -72,23 +72,24 @@ export async function GET() {
   }
 }
 
-// Don't forget to close the change stream when it's no longer needed
-// function stopChangeStream() {
-//   if (changeStream) {
-//     changeStream.close();
-//     changeStream = null;
-//   }
-// }
-// stopChangeStream();
+//Don't forget to close the change stream when it's no longer needed
+function stopChangeStream() {
+  if (changeStream) {
+    changeStream.close();
+    changeStream = null;
+  }
+}
+stopChangeStream();
 
 // Deleting note from the database
 
 export async function DELETE(req) {
   const id = req.nextUrl.searchParams.get("id");
+  console.log(id);
   try {
     await mongodbConnect();
 
-    await Comments.findByIdAndDelete(id);
+    await Likes.findByIdAndDelete(id);
     return NextResponse.json({
       results: ["Note removed from list"],
       success: true,
