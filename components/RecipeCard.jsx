@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 import { toast } from "sonner";
 import LikesCount from "./LikesCount";
+import CommentsCount from "./CommentsCount";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -185,6 +186,7 @@ export default function RecipeCard({ recipeData }) {
                 </CardContent>
                 <CardContent>
                   <LikesCount _id={_id} />
+                  <CommentsCount recipeSlug={_id} />
                   <Typography fontSize="sm">{recipeDesc}</Typography>
                   <Link
                     component="button"
