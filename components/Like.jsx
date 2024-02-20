@@ -27,12 +27,14 @@ export const Like = ({ item }) => {
   const [likedItems, setLikedItems] = useState(likes);
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    const interval = setInterval(() => {
-      mutate("/api/likes");
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+
+  //check if the user has liked the post
+  const isCurrentlyLiked = likes?.some(
+    (likedItem) =>
+      likedItem.likedRecipeId === item._id &&
+      likedItem.likedRecipeUserId === item.userId
+  );
+  //setIsLiked(isCurrentlyLiked);
 
   //Handle post like to the database.
   const postLike = async (likedPost) => {
@@ -50,6 +52,8 @@ export const Like = ({ item }) => {
       const { results } = res.json();
       console.log(results);
       if (res.ok) {
+        mutate("/api/likes");
+        setLikedItems(likes);
         //alertAfterPost();
         router.push("/recipes");
       } else {
@@ -80,13 +84,7 @@ export const Like = ({ item }) => {
   };
 
   const handleLike = (clickedItem) => {
-    //check if the user has liked the post
-    const isCurrentlyLiked = likes?.some(
-      (likedItem) =>
-        likedItem.likedRecipeId === clickedItem._id &&
-        likedItem.likedRecipeUserId === clickedItem.userId
-    );
-    setIsLiked(!isCurrentlyLiked);
+    mutate("/api/likes");
     if (isCurrentlyLiked) {
       deleteLike(clickedItem);
     } else {

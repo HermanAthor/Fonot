@@ -23,6 +23,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 import { toast } from "sonner";
+import LikesCount from "./LikesCount";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -183,15 +184,7 @@ export default function RecipeCard({ recipeData }) {
                   </Box>
                 </CardContent>
                 <CardContent>
-                  <Link
-                    component="button"
-                    underline="none"
-                    fontSize="sm"
-                    fontWeight="lg"
-                    textColor="text.primary"
-                  >
-                    8.1M Likes
-                  </Link>
+                  <LikesCount _id={_id} />
                   <Typography fontSize="sm">{recipeDesc}</Typography>
                   <Link
                     component="button"
@@ -217,24 +210,6 @@ export default function RecipeCard({ recipeData }) {
                   userId={userId}
                   _id={_id}
                 />
-                {/* <CardContent orientation="horizontal" sx={{ gap: 1 }}>
-                  <IconButton
-                    size="sm"
-                    variant="plain"
-                    color="neutral"
-                    sx={{ ml: -1 }}
-                  >s
-                    <Face />
-                  </IconButton>
-                  <CommentTextInput setComment={setComment} postComment={postComment}/>
-                  <Button
-                    onClick={() => postComment(userId, _id)}
-                    underline="none"
-                    role="button"
-                  >
-                    Post
-                  </Button>
-                </CardContent> */}
               </Card>
             );
           })}
