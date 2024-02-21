@@ -25,6 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import CommentTextInput from "./CommentTextInput";
 import useSWR from "swr";
 import { useState } from "react";
+import moment from "moment";
 
 const getComments = async () => {
   try {
@@ -68,13 +69,21 @@ export function Comments({
             <ModeCommentOutlined />
           </IconButton>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto">
+        <DialogContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto no-scrollbar">
           <DialogHeader>
             <DialogTitle>Comments {filteredComments.length}</DialogTitle>
             <DialogDescription>View all comments</DialogDescription>
           </DialogHeader>
           {filteredComments?.map((data) => {
-            return <CommentsSection key={data._id} recipeComments={data} />;
+            const date = moment(data?.createdAt).endOf("day").fromNow();
+            console.log(date);
+            return (
+              <CommentsSection
+                key={data._id}
+                recipeComments={data}
+                date={date}
+              />
+            );
           })}
 
           <CommentTextInput
@@ -95,13 +104,17 @@ export function Comments({
           <ModeCommentOutlined />
         </IconButton>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto no-scrollbar">
         <DrawerHeader className="text-left">
           <DrawerTitle>Comments {filteredComments.length}</DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
         {filteredComments?.map((data) => {
-          return <CommentsSection key={data._id} recipeComments={data} />;
+          const date = moment(data?.createdAt).endOf("day").fromNow();
+          console.log(date);
+          return (
+            <CommentsSection key={data._id} recipeComments={data} date={date} />
+          );
         })}
         <CommentTextInput
           setComment={setComment}
@@ -121,14 +134,19 @@ export function Comments({
   );
 }
 
-const CommentsSection = ({ recipeComments }) => {
+const CommentsSection = ({ recipeComments, date }) => {
   return (
-    <div className="flex flex-row justify-start px-2 pt-1 gap-3 border border-gray-500 rounded-xl">
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
-      <Typography>{recipeComments?.comment}</Typography>
+    <div className="border border-gray-500 rounded-xl px-2 pt-1">
+      <div className="flex flex-row justify-start gap-3 ">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <Typography>{recipeComments?.comment}</Typography>
+      </div>
+      <div className="flex justify-end">
+        <Typography variant="body2">{date}</Typography>
+      </div>
     </div>
   );
 };
