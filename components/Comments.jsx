@@ -76,7 +76,7 @@ export function Comments({
           </DialogHeader>
           {filteredComments?.map((data) => {
             const date = moment(data?.createdAt).endOf("day").fromNow();
-            console.log(date);
+
             return (
               <CommentsSection
                 key={data._id}

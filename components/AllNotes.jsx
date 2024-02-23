@@ -30,10 +30,10 @@ function AllNotes() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
 
-  const handleEdit = () => {
-    // a function that determines if i can show the edit functionallity or not*
-    setEdit(!edit);
-  };
+  // const handleEdit = () => {
+  //   // a function that determines if i can show the edit functionallity or not*
+  //   setEdit(!edit);
+  // };
 
   const handleClose = () => {
     setIsOpen(false);
@@ -70,7 +70,7 @@ function AllNotes() {
 
   return (
     <AppLayout>
-      <NavHeader setSearch={setSearch} />
+      {/* <NavHeader setSearch={setSearch} /> */}
 
       <div className="px-10 flex flex-row justify-between items-center w-full">
         <div className="my-4 flex flex-row justify-between w-auto items-center gap-10">
@@ -81,9 +81,9 @@ function AllNotes() {
           <div className="hidden md:flex w-96">
             <Search setSearch={setSearch} search={search} />
           </div>
-          <div className="inline md:hidden ">
+          {/* <div className="inline md:hidden ">
             <SelectComp notes={notes} />
-          </div>
+          </div> */}
         </div>
         <div className="hidden md:flex flex-row justify-center items-center gap-3">
           profile

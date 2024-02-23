@@ -83,23 +83,36 @@ export const Like = ({ item }) => {
     }
   };
 
-  const handleLike = (clickedItem) => {
-    mutate("/api/likes");
-    if (isCurrentlyLiked) {
-      deleteLike(clickedItem);
-    } else {
-      postLike(clickedItem);
-    }
-  };
+  // const handleLike = (clickedItem) => {
+  //   mutate("/api/likes");
+  //   if (isCurrentlyLiked) {
+  //     deleteLike(clickedItem);
+  //   } else {
+  //     postLike(clickedItem);
+  //   }
+  // };
 
   return (
-    <IconButton
-      onClick={() => handleLike(item)}
-      variant="plain"
-      color="neutral"
-      size="sm"
-    >
-      {isLiked ? <FavoriteIcon /> : <FavoriteBorder />}
-    </IconButton>
+    <>
+      {isCurrentlyLiked ? (
+        <IconButton
+          onClick={() => deleteLike(item)}
+          variant="plain"
+          color="neutral"
+          size="sm"
+        >
+          <FavoriteIcon />
+        </IconButton>
+      ) : (
+        <IconButton
+          onClick={() => postLike(item)}
+          variant="plain"
+          color="neutral"
+          size="sm"
+        >
+          <FavoriteBorder />
+        </IconButton>
+      )}
+    </>
   );
 };

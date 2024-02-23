@@ -25,6 +25,7 @@ import { useMediaQuery } from "@mui/material";
 import { toast } from "sonner";
 import LikesCount from "./LikesCount";
 import CommentsCount from "./CommentsCount";
+import { SavePost } from "./SaveRecipe";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -179,9 +180,7 @@ export default function RecipeCard({ recipeData }) {
                       flexDirection: "row-reverse",
                     }}
                   >
-                    <IconButton variant="plain" color="neutral" size="sm">
-                      <BookmarkBorderRoundedIcon />
-                    </IconButton>
+                    <SavePost item={item} />
                   </Box>
                 </CardContent>
                 <CardContent>
