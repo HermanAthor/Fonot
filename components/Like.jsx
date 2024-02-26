@@ -24,8 +24,7 @@ export const Like = ({ item }) => {
   if (!isLoading && !error) {
     likes = data?.results;
   }
-  const [likedItems, setLikedItems] = useState(likes);
-  const [isLiked, setIsLiked] = useState(false);
+  // const [likedItems, setLikedItems] = useState(likes);
   const router = useRouter();
 
   //check if the user has liked the post
@@ -82,15 +81,6 @@ export const Like = ({ item }) => {
       }
     }
   };
-
-  // const handleLike = (clickedItem) => {
-  //   mutate("/api/likes");
-  //   if (isCurrentlyLiked) {
-  //     deleteLike(clickedItem);
-  //   } else {
-  //     postLike(clickedItem);
-  //   }
-  // };
 
   return (
     <>

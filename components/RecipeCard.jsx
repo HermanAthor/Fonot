@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import LikesCount from "./LikesCount";
 import CommentsCount from "./CommentsCount";
 import { SavePost } from "./SaveRecipe";
+import { RecipeDetailDialog } from "./RecipeDetailsDialog";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -142,17 +143,18 @@ export default function RecipeCard({ recipeData }) {
                     <MoreHoriz />
                   </IconButton>
                 </CardContent>
-                <CardOverflow>
-                  <AspectRatio>
-                    <img src={thumbnail[0].url} alt="food" loading="lazy" />
-                  </AspectRatio>
-                </CardOverflow>
+                <RecipeDetailDialog
+                  isDesktop={isDesktop}
+                  thumbnail={thumbnail}
+                  recipeTitle={recipeTitle}
+                />
                 <CardContent
                   orientation="horizontal"
                   sx={{ alignItems: "center", mx: -1 }}
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
                     <Like item={item} />
+                    {/* <RecipeDetailDialog isDesktop={isDesktop} /> */}
                     <Comments
                       recipeSlug={_id}
                       isDesktop={isDesktop}
@@ -172,7 +174,9 @@ export default function RecipeCard({ recipeData }) {
                       gap: 0.5,
                       mx: "auto",
                     }}
-                  ></Box>
+                  >
+                    <Typography>{recipeDuration} mins to prepare</Typography>
+                  </Box>
                   <Box
                     sx={{
                       width: 0,

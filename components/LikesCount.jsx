@@ -23,7 +23,7 @@ function LikesCount({ _id }) {
   if (!isLoading && !error) {
     likes = data?.results;
   }
-  const filteredLikes = likes.filter((like) => like.likedRecipeId === _id);
+  const filteredLikes = likes?.filter((like) => like.likedRecipeId === _id);
   return (
     <>
       <Link

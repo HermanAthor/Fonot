@@ -1,6 +1,7 @@
 "use client";
 import IconButton from "@mui/joy/IconButton";
-import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useSWR, { mutate } from "swr";
@@ -32,6 +33,16 @@ export const SavePost = ({ item }) => {
     toast("comment posted", {
       description:
         " You have added this recipe to your favourites Note: You can remove it when you go to your personal panel",
+      action: {
+        label: "Undo",
+        onClick: () => alert("Sorry, but you currently can't undo this"),
+      },
+    });
+  };
+  const warningToRemoveSavedRecipe = () => {
+    toast("Can't remove from saved", {
+      description:
+        " To remove saved recipes you need to go to your personal panel to delete them",
       action: {
         label: "Undo",
         onClick: () => alert("Sorry, but you currently can't undo this"),
@@ -110,7 +121,14 @@ export const SavePost = ({ item }) => {
   return (
     <>
       {isFavourite ? (
-        <Typography>Saved</Typography>
+        <IconButton
+          onClick={warningToRemoveSavedRecipe}
+          variant="plain"
+          color="neutral"
+          size="sm"
+        >
+          <BookmarkAddedIcon />
+        </IconButton>
       ) : (
         <IconButton
           onClick={() => handleSave(item)}
@@ -118,7 +136,7 @@ export const SavePost = ({ item }) => {
           color="neutral"
           size="sm"
         >
-          <BookmarkBorderRoundedIcon />
+          <BookmarkAddIcon />
         </IconButton>
       )}
     </>
