@@ -69,7 +69,7 @@ export function Comments({
             <ModeCommentOutlined />
           </IconButton>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto no-scrollbar">
+        <DialogContent className="md:max-h-[500px] overflow-auto no-scrollbar">
           <DialogHeader>
             <DialogTitle>Comments {filteredComments.length}</DialogTitle>
             <DialogDescription>View all comments</DialogDescription>
@@ -104,7 +104,7 @@ export function Comments({
           <ModeCommentOutlined />
         </IconButton>
       </DrawerTrigger>
-      <DrawerContent className="sm:max-w-[425px] md:max-h-[500px] overflow-auto no-scrollbar">
+      <DrawerContent className="md:max-h-[500px] overflow-auto no-scrollbar">
         <DrawerHeader className="text-left">
           <DrawerTitle>Comments {filteredComments.length}</DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>

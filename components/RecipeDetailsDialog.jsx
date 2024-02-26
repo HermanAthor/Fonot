@@ -66,7 +66,7 @@ export function RecipeDetailDialog({ isDesktop, thumbnail, recipeTitle }) {
       </DrawerTrigger>
       <DrawerContent className="md:max-h-[500px] overflow-auto no-scrollbar">
         <DrawerHeader className="text-left">
-          <DrawerTitle>Comments </DrawerTitle>
+          <DrawerTitle>{recipeTitle} </DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
         {/* component to display the data */}
