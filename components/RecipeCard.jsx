@@ -1,25 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "use client";
 
-import AspectRatio from "@mui/joy/AspectRatio";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
-import CardOverflow from "@mui/joy/CardOverflow";
 import Link from "@mui/joy/Link";
 import IconButton from "@mui/joy/IconButton";
-import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import SendOutlined from "@mui/icons-material/SendOutlined";
-import Face from "@mui/icons-material/Face";
-import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import CommentTextInput from "./CommentTextInput";
 import { Comments } from "./Comments";
 import { Like } from "./Like";
 import { useState } from "react";
-
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
 import { toast } from "sonner";
@@ -27,6 +21,7 @@ import LikesCount from "./LikesCount";
 import CommentsCount from "./CommentsCount";
 import { SavePost } from "./SaveRecipe";
 import { RecipeDetailDialog } from "./RecipeDetailsDialog";
+import { recipeDurationCount } from "@/lib/recipeDurationCount";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -147,6 +142,10 @@ export default function RecipeCard({ recipeData }) {
                   isDesktop={isDesktop}
                   thumbnail={thumbnail}
                   recipeTitle={recipeTitle}
+                  recipeDesc={recipeDesc}
+                  recipe={recipe}
+                  dietOption={dietOption}
+                  files={files}
                 />
                 <CardContent
                   orientation="horizontal"
@@ -175,7 +174,9 @@ export default function RecipeCard({ recipeData }) {
                       mx: "auto",
                     }}
                   >
-                    <Typography>{recipeDuration} mins to prepare</Typography>
+                    <Typography>
+                      {recipeDurationCount(recipeDuration)} to prepare
+                    </Typography>
                   </Box>
                   <Box
                     sx={{

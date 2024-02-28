@@ -26,8 +26,19 @@ import CommentTextInput from "./CommentTextInput";
 import { useState } from "react";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
+import Box from "@mui/joy/Box";
+import { Typography } from "@mui/material";
+import RecipeDetails from "./RecipeDetails";
 
-export function RecipeDetailDialog({ isDesktop, thumbnail, recipeTitle }) {
+export function RecipeDetailDialog({
+  isDesktop,
+  thumbnail,
+  recipeTitle,
+  recipeDesc,
+  recipe,
+  dietOption,
+  files,
+}) {
   const [open, setOpen] = useState(false);
 
   if (isDesktop) {
@@ -47,9 +58,14 @@ export function RecipeDetailDialog({ isDesktop, thumbnail, recipeTitle }) {
         <DialogContent className="md:max-h-[500px] overflow-auto no-scrollbar">
           <DialogHeader>
             <DialogTitle>{recipeTitle} </DialogTitle>
-            <DialogDescription>View all comments</DialogDescription>
+            <DialogDescription>{recipeDesc}</DialogDescription>
           </DialogHeader>
-          {/* component to display the data*/}
+          <RecipeDetails
+            thumbnail={thumbnail}
+            recipe={recipe}
+            dietOption={dietOption}
+            files={files}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -69,7 +85,12 @@ export function RecipeDetailDialog({ isDesktop, thumbnail, recipeTitle }) {
           <DrawerTitle>{recipeTitle} </DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
-        {/* component to display the data */}
+        <RecipeDetails
+          thumbnail={thumbnail}
+          recipe={recipe}
+          dietOption={dietOption}
+          files={files}
+        />
 
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
