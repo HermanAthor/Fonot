@@ -55,7 +55,7 @@ export function RecipeDetailDialog({
             </AspectRatio>
           </CardOverflow>
         </DialogTrigger>
-        <DialogContent className="md:max-h-[500px] overflow-auto no-scrollbar">
+        <DialogContent className="md:max-h-[500px] w-full overflow-auto no-scrollbar">
           <DialogHeader>
             <DialogTitle>{recipeTitle} </DialogTitle>
             <DialogDescription>{recipeDesc}</DialogDescription>
