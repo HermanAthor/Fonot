@@ -44,7 +44,7 @@ export function RecipeDetailDialog({
   if (isDesktop) {
     return (
       <Dialog
-        className="max-h-96 overflow-auto"
+        className="max-h-96 overflow-auto max-w-4xl"
         open={open}
         onOpenChange={setOpen}
       >
@@ -55,7 +55,7 @@ export function RecipeDetailDialog({
             </AspectRatio>
           </CardOverflow>
         </DialogTrigger>
-        <DialogContent className="md:max-h-[500px] w-full overflow-auto no-scrollbar">
+        <DialogContent className="md:max-h-[600px] overflow-auto no-scrollbar max-w-6xl">
           <DialogHeader>
             <DialogTitle>{recipeTitle} </DialogTitle>
             <DialogDescription>{recipeDesc}</DialogDescription>

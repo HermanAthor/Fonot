@@ -122,8 +122,6 @@ export function Comments({
           userId={userId}
           _id={_id}
         />
-
-        {/* <ProfileForm className="px-4" /> */}
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
