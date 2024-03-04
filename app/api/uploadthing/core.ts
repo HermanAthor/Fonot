@@ -22,7 +22,10 @@ export const ourFileRouter = {
 
       return { uploadedBy: metadata.userId };
     }),
-  thumbnailUplader: f(["image"])
+  inlineRecipeImage: f(["image"])
+    .middleware(({ req }) => auth(req))
+    .onUploadComplete((data) => console.log("file", data)),
+  thumbnailUploader: f(["image"])
     .middleware(({ req }) => auth(req))
     .onUploadComplete((data) => console.log("file", data)),
 } satisfies FileRouter;
