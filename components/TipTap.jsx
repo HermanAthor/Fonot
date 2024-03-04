@@ -1,13 +1,34 @@
 "use client";
 
 import { EditorContent, useEditor } from "@tiptap/react";
+import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 
 const Tiptap = ({ receipe, onChange }) => {
   console.log(receipe);
   const editor = useEditor({
-    extensions: [StarterKit.configure()],
+    extensions: [
+      Image.configure({
+        inline: true,
+      }),
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: true,
+          HTMLAttributes: {
+            class: "list-disc",
+          },
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: true,
+          HTMLAttributes: {
+            class: "list-decimal",
+          },
+        },
+      }),
+    ],
     content: receipe,
     editorProps: {
       attributes: {
@@ -21,7 +42,7 @@ const Tiptap = ({ receipe, onChange }) => {
     },
   });
   return (
-    <div className="flex flex-col justify-stretch min-h-[150px] ">
+    <div className="flex flex-col justify-stretch min-h-[150px]">
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>

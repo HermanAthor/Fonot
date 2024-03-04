@@ -8,6 +8,7 @@ import {
   ListOrdered,
   Heading2,
 } from "lucide-react";
+import { InlineRecipeImageModal } from "./Modals/InlineRecipeImageModal";
 
 function Toolbar({ editor }) {
   if (!editor) {
@@ -69,6 +70,7 @@ function Toolbar({ editor }) {
       >
         <ListOrdered className="h-4 w-4" />
       </Toggle>
+      <InlineRecipeImageModal editor={editor} />
     </div>
   );
 }

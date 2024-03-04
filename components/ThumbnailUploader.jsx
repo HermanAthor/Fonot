@@ -11,7 +11,7 @@ function ThumbnailUploader({ files, setFiles, title }) {
           <p>{title}</p>
           <div className="flex justify-start items-start">
             <UploadButton
-              endpoint="thumbnailUplader"
+              endpoint="thumbnailUploader"
               onClientUploadComplete={(res) => {
                 setFiles(res);
                 console.log("Files: ", res);
