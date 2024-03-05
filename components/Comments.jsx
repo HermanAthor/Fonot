@@ -110,7 +110,7 @@ export function Comments({
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
         {filteredComments?.map((data) => {
-          const date = moment(data?.createdAt).endOf("day").fromNow();
+          const date = moment(data?.createdAt).startOf("hour").fromNow();
           console.log(date);
           return (
             <CommentsSection key={data._id} recipeComments={data} date={date} />

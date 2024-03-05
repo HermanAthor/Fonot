@@ -32,23 +32,16 @@ export function RecipePage() {
   }
   if (isLoading) {
     return (
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid">
+      <div className=" grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid">
         <LoadingRecipeCard />
       </div>
     );
   }
   if (data) {
-    console.log(data);
     return (
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid">
+      <div className=" grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid pb-4">
         <RecipeCard recipeData={data} />
       </div>
     );
   }
-
-  // return (
-  //   <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid">
-  //     <RecipeCard recipeData={data.results} />
-  //   </div>
-  // );
 }
