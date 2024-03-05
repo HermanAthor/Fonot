@@ -26,6 +26,7 @@ import CommentTextInput from "./CommentTextInput";
 import useSWR from "swr";
 import { useState } from "react";
 import moment from "moment";
+//import { Drawer } from "vaul";
 
 const getComments = async () => {
   try {
@@ -71,7 +72,7 @@ export function Comments({
         </DialogTrigger>
         <DialogContent className="md:max-h-[500px] overflow-auto no-scrollbar">
           <DialogHeader>
-            <DialogTitle>Comments {filteredComments.length}</DialogTitle>
+            <DialogTitle>Comments {filteredComments?.length}</DialogTitle>
             <DialogDescription>View all comments</DialogDescription>
           </DialogHeader>
           {filteredComments?.map((data) => {
@@ -104,25 +105,40 @@ export function Comments({
           <ModeCommentOutlined />
         </IconButton>
       </DrawerTrigger>
-      <DrawerContent className="md:max-h-[500px] overflow-auto no-scrollbar">
+      <DrawerContent className="bg-white flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
         <DrawerHeader className="text-left">
           <DrawerTitle>Comments {filteredComments.length}</DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
-        {filteredComments?.map((data) => {
-          const date = moment(data?.createdAt).startOf("hour").fromNow();
-          console.log(date);
-          return (
-            <CommentsSection key={data._id} recipeComments={data} date={date} />
-          );
-        })}
-        <CommentTextInput
-          setComment={setComment}
-          postComment={postComment}
-          userId={userId}
-          _id={_id}
-        />
+        <div className="max-w-md w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px]">
+          {filteredComments?.map((data) => {
+            const date = moment(data?.createdAt).startOf("hour").fromNow();
+            console.log(date);
+            return (
+              <div className="pb-3">
+                <CommentsSection
+                  key={data._id}
+                  recipeComments={data}
+                  date={date}
+                />
+              </div>
+            );
+          })}
+          {/* <CommentTextInput
+            setComment={setComment}
+            postComment={postComment}
+            userId={userId}
+            _id={_id}
+          /> */}
+        </div>
+
         <DrawerFooter className="pt-2">
+          <CommentTextInput
+            setComment={setComment}
+            postComment={postComment}
+            userId={userId}
+            _id={_id}
+          />
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
@@ -134,7 +150,7 @@ export function Comments({
 
 const CommentsSection = ({ recipeComments, date }) => {
   return (
-    <div className="border border-gray-500 rounded-xl px-2 pt-1">
+    <div className="border border-gray-500 rounded-xl px-2  pt-1">
       <div className="flex flex-row justify-start gap-3 ">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -148,3 +164,38 @@ const CommentsSection = ({ recipeComments, date }) => {
     </div>
   );
 };
+
+// const MyDrawer = ()=> {
+//   return (
+//     <Drawer.Root>
+//       <Drawer.Trigger asChild>
+//         <button>Open Drawer</button>
+//       </Drawer.Trigger>
+//       <Drawer.Portal>
+//         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+//         <Drawer.Content className="bg-white flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
+//           <div className="max-w-md w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px]">
+//             <input
+//               className="border border-gray-400 my-8"
+//               placeholder="Input"
+//             />
+//             <p>
+//               But I must explain to you how all this mistaken idea of denouncing
+
+//             </p>
+//             <input
+//               className="border border-gray-400 my-8"
+//               placeholder="Input"
+//             />
+//             <p>
+//               On the other hand, we denounce with righteous indignation and
+//               </p>
+//             <input
+//               className="border border-gray-400 my-8"
+//               placeholder="Input"
+//             />
+//           </div>
+//         </Drawer.Content>
+//       </Drawer.Portal>
+//     </Drawer.Root>
+//   )}
