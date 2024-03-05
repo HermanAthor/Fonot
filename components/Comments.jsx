@@ -26,7 +26,6 @@ import CommentTextInput from "./CommentTextInput";
 import useSWR from "swr";
 import { useState } from "react";
 import moment from "moment";
-//import { Drawer } from "vaul";
 
 const getComments = async () => {
   try {
@@ -124,12 +123,6 @@ export function Comments({
               </div>
             );
           })}
-          {/* <CommentTextInput
-            setComment={setComment}
-            postComment={postComment}
-            userId={userId}
-            _id={_id}
-          /> */}
         </div>
 
         <DrawerFooter className="pt-2">
@@ -164,38 +157,3 @@ const CommentsSection = ({ recipeComments, date }) => {
     </div>
   );
 };
-
-// const MyDrawer = ()=> {
-//   return (
-//     <Drawer.Root>
-//       <Drawer.Trigger asChild>
-//         <button>Open Drawer</button>
-//       </Drawer.Trigger>
-//       <Drawer.Portal>
-//         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-//         <Drawer.Content className="bg-white flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
-//           <div className="max-w-md w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px]">
-//             <input
-//               className="border border-gray-400 my-8"
-//               placeholder="Input"
-//             />
-//             <p>
-//               But I must explain to you how all this mistaken idea of denouncing
-
-//             </p>
-//             <input
-//               className="border border-gray-400 my-8"
-//               placeholder="Input"
-//             />
-//             <p>
-//               On the other hand, we denounce with righteous indignation and
-//               </p>
-//             <input
-//               className="border border-gray-400 my-8"
-//               placeholder="Input"
-//             />
-//           </div>
-//         </Drawer.Content>
-//       </Drawer.Portal>
-//     </Drawer.Root>
-//   )}

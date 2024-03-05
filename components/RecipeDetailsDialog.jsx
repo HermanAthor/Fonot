@@ -80,21 +80,22 @@ export function RecipeDetailDialog({
           </AspectRatio>
         </CardOverflow>
       </DrawerTrigger>
-      <DrawerContent className="md:max-h-[500px] overflow-auto no-scrollbar">
+      <DrawerContent className="bg-white flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
         <DrawerHeader className="text-left">
           <DrawerTitle>{recipeTitle} </DrawerTitle>
-          <DrawerDescription>View all comments</DrawerDescription>
+          <DrawerDescription>{recipeDesc}</DrawerDescription>
         </DrawerHeader>
-        <RecipeDetails
-          thumbnail={thumbnail}
-          recipe={recipe}
-          dietOption={dietOption}
-          files={files}
-        />
-
+        <div className="max-w-md w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px]">
+          <RecipeDetails
+            thumbnail={thumbnail}
+            recipe={recipe}
+            dietOption={dietOption}
+            files={files}
+          />
+        </div>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Close</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
