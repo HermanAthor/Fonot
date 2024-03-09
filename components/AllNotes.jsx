@@ -31,6 +31,7 @@ function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
   const { data: session } = useSession();
+  console.log(session);
   // console.log(session.user.name);
   //const { user } = useUser(); //getting user object
 

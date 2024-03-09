@@ -3,13 +3,19 @@ import CardContent from "@mui/joy/CardContent";
 import IconButton from "@mui/joy/IconButton";
 import Textarea from "@mui/joy/Textarea";
 import { Button } from "./ui/button";
+import { useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { getInitials } from "@/lib/getInitials";
 
 const CommentTextInput = ({ setComment, postComment, userId, _id }) => {
+  const { data: session } = useSession();
+  const userInitials = getInitials(session?.user?.name);
   return (
     <CardContent orientation="horizontal" sx={{ gap: 1 }}>
-      <IconButton size="sm" variant="plain" color="neutral" sx={{ ml: -1 }}>
-        <Face />
-      </IconButton>
+      <Avatar>
+        <AvatarImage src={session?.user?.image} alt="user-dp" />
+        <AvatarFallback>{userInitials}</AvatarFallback>
+      </Avatar>
       <Textarea
         onChange={(e) => setComment(e.target.value)}
         multiline={true}

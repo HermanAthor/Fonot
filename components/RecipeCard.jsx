@@ -22,15 +22,20 @@ import CommentsCount from "./CommentsCount";
 import { SavePost } from "./SaveRecipe";
 import { RecipeDetailDialog } from "./RecipeDetailsDialog";
 import { recipeDurationCount } from "@/lib/recipeDurationCount";
+import { useSession } from "next-auth/react";
+import { logIn } from "@/app/actions";
+import { alertUserToSign } from "@/lib/alertUserToSignIn";
 
 export default function RecipeCard({ recipeData }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [comment, setComment] = useState("");
   const router = useRouter();
+  const { data: session } = useSession();
+
   // notify the user about the comment post
 
   const alertAfterPost = () => {
-    toast("comment posted", {
+    toast.success("comment posted", {
       description: " You have added a comment to this post",
       action: {
         label: "Undo",
@@ -38,33 +43,56 @@ export default function RecipeCard({ recipeData }) {
       },
     });
   };
+  //Notify the user to log in to be able to make a comment.
+  // const alertUserToSign = () => {
+  //   toast.info("Cannot perform this task", {
+  //     position: "top-center",
+  //     duration: 5000,
+  //     description:
+  //       " You need to be logged in to make a comment: Please consider to log in",
+  //     action: {
+  //       label: "Sign In",
+  //       onClick: () => logIn(),
+  //     },
+  //   });
+  // };
 
   //handlepost comment
   const postComment = async (userId, recipeId) => {
-    try {
-      const res = await fetch("/api/comments", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          comment,
-          userId,
-          recipeId,
-        }),
-      });
+    if (session && comment.length > 2) {
+      const commentUserId = session?.user?.id;
+      const userName = session?.user?.name;
+      const userImage = session?.user?.image;
+      try {
+        const res = await fetch("/api/comments", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            comment,
+            userId,
+            recipeId,
+            userName,
+            commentUserId,
+            userImage,
+          }),
+        });
 
-      if (!res.ok) {
-        throw new Error(`Failed to create a comment. Status: ${res.status}`);
+        if (!res.ok) {
+          throw new Error(`Failed to create a comment. Status: ${res.status}`);
+        }
+        alertAfterPost();
+        const { results } = await res.json();
+
+        // setData(results);
+
+        router.push("/recipes");
+      } catch (error) {
+        console.log(error);
       }
-      alertAfterPost();
-      const { results } = await res.json();
-
-      // setData(results);
-
-      router.push("/recipes");
-    } catch (error) {
-      console.log(error);
+    } else {
+      alertUserToSign();
     }
   };
 
@@ -153,7 +181,6 @@ export default function RecipeCard({ recipeData }) {
                 >
                   <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
                     <Like item={item} />
-                    {/* <RecipeDetailDialog isDesktop={isDesktop} /> */}
                     <Comments
                       recipeSlug={_id}
                       isDesktop={isDesktop}
