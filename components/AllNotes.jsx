@@ -4,13 +4,13 @@
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   IconButton,
   Typography,
+  Avatar,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 //import { UserButton, useUser } from "@clerk/nextjs";
@@ -21,9 +21,17 @@ import Search from "./Search";
 import SelectComp from "./SelectComp";
 import { getBgColor, getCardBgColor } from "../app/libs/dynamicColors";
 
+import { useSession } from "next-auth/react";
+import { Button } from "./ui/button";
+import { logIn } from "@/app/actions";
+
+import { ProfileModal } from "./Modals/ProfileModal";
+
 function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
+  const { data: session } = useSession();
+  // console.log(session.user.name);
   //const { user } = useUser(); //getting user object
 
   //handling the modal state ...
@@ -73,7 +81,7 @@ function AllNotes() {
       {/* <NavHeader setSearch={setSearch} /> */}
 
       <div className="px-10 flex flex-row justify-between items-center w-full">
-        <div className="my-4 flex flex-row justify-between w-auto items-center gap-10">
+        <div className="my-4 flex flex-row justify-between w-auto items-center gap-10 ">
           <Typography variant="h6" className="text-lg ">
             {" "}
             You have {filteredNotes.length} Notes
@@ -86,7 +94,15 @@ function AllNotes() {
           </div> */}
         </div>
         <div className="hidden md:flex flex-row justify-center items-center gap-3">
-          profile
+          {session ? (
+            <ProfileModal />
+          ) : (
+            <div>
+              <form action={() => logIn()}>
+                <Button type="submit">Sign In</Button>
+              </form>
+            </div>
+          )}
         </div>
       </div>
       <div className="overflow-y-auto p-2 no-scrollbar">
