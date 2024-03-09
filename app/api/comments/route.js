@@ -5,13 +5,17 @@ import { NextResponse } from "next/server";
 
 // //Post route for all the notes
 export async function POST(req) {
-  const { userId, recipeId, comment } = await req.json();
+  const { userId, recipeId, comment, userName, commentUserId, userImage } =
+    await req.json();
   try {
     await mongodbConnect();
     const commentsList = new Comments({
       userId,
       recipeId,
       comment,
+      userName,
+      commentUserId,
+      userImage,
     });
 
     await commentsList.save();

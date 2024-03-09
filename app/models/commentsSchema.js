@@ -6,6 +6,18 @@ const commentsSchema = new Schema(
       type: String,
       required: true,
     },
+    userName: {
+      type: String,
+      required: true,
+    },
+    commentUserId: {
+      type: String,
+      required: true,
+    },
+    userImage: {
+      type: String,
+      required: false,
+    },
     recipeId: {
       type: String,
       required: true,
