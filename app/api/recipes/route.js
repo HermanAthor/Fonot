@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 //Post recipes for all the recipes
 export async function POST(req) {
-  const { formData } = await req.json();
   const {
     userId,
     files,
@@ -15,8 +14,19 @@ export async function POST(req) {
     recipeTitle,
     recipeDesc,
     recipeDuration,
-  } = formData;
-  console.log(formData);
+  } = await req.json();
+  // const {
+  //   userId,
+  //   files,
+  //   thumbnail,
+  //   isPublic,
+  //   dietOption,
+  //   recipe,
+  //   recipeTitle,
+  //   recipeDesc,
+  //   recipeDuration,
+  // } = formData;
+  // console.log(formData);
   try {
     await mongodbConnect();
     const recipeList = new recipes({

@@ -20,6 +20,8 @@ import ThumbnailUploader from "./ThumbnailUploader";
 import { DietOptions, PrivateOrPublic } from "./RadioButtons";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { alertUserToSign } from "@/lib/alertUserToSignIn";
 
 function CreateReceipe() {
   const [files, setFiles] = useState([]);
@@ -27,6 +29,7 @@ function CreateReceipe() {
   const [isPublic, setIsPublic] = useState(false);
   const [dietOption, setDietOptions] = useState("");
   const router = useRouter();
+  const { data: session } = useSession();
 
   function stringToBool(value) {
     if (value.toLowerCase() === "true") return true;
@@ -65,20 +68,8 @@ function CreateReceipe() {
   });
   const { getValues } = form;
 
-  const userId = "1234";
-
   // All the form data
-  const formData = {
-    userId: userId,
-    files: files,
-    thumbnail: thumbnail,
-    isPublic: isPublic,
-    dietOption: dietOption,
-    recipe: getValues("recipe"),
-    recipeTitle: getValues("recipeTitle"),
-    recipeDesc: getValues("recipeDesc"),
-    recipeDuration: getValues("duration"),
-  };
+
   const alertAfterPost = () => {
     toast("Recipe has been created", {
       description:
@@ -92,33 +83,42 @@ function CreateReceipe() {
   // Function to post recipe to the database
   const handleSubmit = async (e, data) => {
     e.preventDefault();
-    try {
-      const res = await fetch("/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ formData }),
-      });
-      const { results } = res.json();
-      console.log(results);
-      if (res.ok) {
-        alertAfterPost();
-        router.push("/allNotes");
-      } else {
-        throw new Error("Failed to create a topic");
+    if (session) {
+      const userId = session?.user?.id;
+      try {
+        const res = await fetch("/api/recipes", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            files: files,
+            thumbnail: thumbnail,
+            isPublic: isPublic,
+            dietOption: dietOption,
+            recipe: getValues("recipe"),
+            recipeTitle: getValues("recipeTitle"),
+            recipeDesc: getValues("recipeDesc"),
+            recipeDuration: getValues("duration"),
+          }),
+        });
+        // const { results } = res.json();
+        // console.log(results);
+        if (res.ok) {
+          alertAfterPost();
+          router.push("/allNotes");
+        } else {
+          throw new Error("Failed to create a topic");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      alertUserToSign();
     }
   };
 
-  const postRecipe = (e) => {
-    e.preventDefault();
-    alertAfterPost();
-    console.log("The recipe", formData);
-    // router.push("/allNotes");//
-  };
   return (
     <div className="pt-10">
       <div className="text-2xl mb-4">Create a recipe</div>
