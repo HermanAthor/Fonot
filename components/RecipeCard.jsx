@@ -43,19 +43,6 @@ export default function RecipeCard({ recipeData }) {
       },
     });
   };
-  //Notify the user to log in to be able to make a comment.
-  // const alertUserToSign = () => {
-  //   toast.info("Cannot perform this task", {
-  //     position: "top-center",
-  //     duration: 5000,
-  //     description:
-  //       " You need to be logged in to make a comment: Please consider to log in",
-  //     action: {
-  //       label: "Sign In",
-  //       onClick: () => logIn(),
-  //     },
-  //   });
-  // };
 
   //handlepost comment
   const postComment = async (userId, recipeId) => {
@@ -78,11 +65,16 @@ export default function RecipeCard({ recipeData }) {
             userImage,
           }),
         });
+        alertAfterPost();
+        setComment("");
+        router.refresh();
 
         if (!res.ok) {
           throw new Error(`Failed to create a comment. Status: ${res.status}`);
         }
-        alertAfterPost();
+        // alertAfterPost();
+        // setComment("");
+        // router.refresh();
         const { results } = await res.json();
 
         // setData(results);
