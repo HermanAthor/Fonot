@@ -55,17 +55,19 @@ export function RecipeDetailDialog({
             </AspectRatio>
           </CardOverflow>
         </DialogTrigger>
-        <DialogContent className="md:max-h-[600px] overflow-auto no-scrollbar max-w-6xl">
+        <DialogContent className="bg-white flex flex-col  max-h-[70%] rounded-t-[10px] max-w-6xl">
           <DialogHeader>
             <DialogTitle>{recipeTitle} </DialogTitle>
             <DialogDescription>{recipeDesc}</DialogDescription>
           </DialogHeader>
-          <RecipeDetails
-            thumbnail={thumbnail}
-            recipe={recipe}
-            dietOption={dietOption}
-            files={files}
-          />
+          <div className="w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px] no-scrollbar">
+            <RecipeDetails
+              thumbnail={thumbnail}
+              recipe={recipe}
+              dietOption={dietOption}
+              files={files}
+            />
+          </div>
         </DialogContent>
       </Dialog>
     );
