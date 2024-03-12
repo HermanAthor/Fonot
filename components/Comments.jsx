@@ -25,7 +25,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import CommentTextInput from "./CommentTextInput";
 import useSWR from "swr";
 import { useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
+import Box from "@mui/joy/Box";
+import { getInitials } from "@/lib/getInitials";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const getComments = async () => {
   try {
@@ -49,6 +52,7 @@ export function Comments({
 }) {
   const { data, error, isLoading } = useSWR("/api/comments", getComments);
   const [open, setOpen] = useState(false);
+  dayjs.extend(relativeTime);
   let comments = [];
   if (!isLoading && !error) {
     comments = data?.results;
@@ -69,23 +73,13 @@ export function Comments({
             <ModeCommentOutlined />
           </IconButton>
         </DialogTrigger>
-        <DialogContent className="md:max-h-[500px] overflow-auto no-scrollbar">
+        <DialogContent className="bg-white flex flex-col  max-h-[70%] rounded-t-[10px] max-w-4xl">
           <DialogHeader>
             <DialogTitle>Comments {filteredComments?.length}</DialogTitle>
             <DialogDescription>View all comments</DialogDescription>
           </DialogHeader>
-          {filteredComments?.map((data) => {
-            const date = moment(data?.createdAt).endOf("day").fromNow();
-
-            return (
-              <CommentsSection
-                key={data._id}
-                recipeComments={data}
-                date={date}
-              />
-            );
-          })}
-
+          {/* this is a local component */}
+          <TheComments filteredComments={filteredComments} />
           <CommentTextInput
             setComment={setComment}
             postComment={postComment}
@@ -109,22 +103,8 @@ export function Comments({
           <DrawerTitle>Comments {filteredComments.length}</DrawerTitle>
           <DrawerDescription>View all comments</DrawerDescription>
         </DrawerHeader>
-        <div className="max-w-md w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px]">
-          {filteredComments?.map((data) => {
-            const date = moment(data?.createdAt).startOf("hour").fromNow();
-            console.log(date);
-            return (
-              <div className="pb-3">
-                <CommentsSection
-                  key={data._id}
-                  recipeComments={data}
-                  date={date}
-                />
-              </div>
-            );
-          })}
-        </div>
-
+        {/* This is a local component */}
+        <TheComments filteredComments={filteredComments} />
         <DrawerFooter className="pt-2">
           <CommentTextInput
             setComment={setComment}
@@ -142,18 +122,42 @@ export function Comments({
 }
 
 const CommentsSection = ({ recipeComments, date }) => {
+  const userInitials = getInitials(recipeComments?.userName);
   return (
-    <div className="border border-gray-500 rounded-xl px-2  pt-1">
-      <div className="flex flex-row justify-start gap-3 ">
+    <div>
+      <div className="flex flex-row justify-start gap-3 pb-3">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={recipeComments?.userImage} alt="@userName" />
+          <AvatarFallback>{userInitials}</AvatarFallback>
         </Avatar>
-        <Typography>{recipeComments?.comment}</Typography>
+        <Box className="border border-gray-100 bg-gray-100 rounded-xl px-2  pt-1">
+          <Typography className="font-bold">
+            {recipeComments?.userName}
+          </Typography>
+          <Typography>{recipeComments?.comment}</Typography>
+          <div className="flex justify-end">
+            <Typography variant="body2">{date}</Typography>
+          </div>
+        </Box>
       </div>
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Typography variant="body2">{date}</Typography>
-      </div>
+      </div> */}
+    </div>
+  );
+};
+
+const TheComments = ({ filteredComments }) => {
+  return (
+    <div className="w-full mx-auto flex flex-col overflow-auto p-4 rounded-t-[10px] no-scrollbar">
+      {filteredComments?.map((data) => {
+        const dateFormat = data?.createdAt;
+        const transformedDate = dayjs(dateFormat);
+        const date = transformedDate.fromNow();
+        return (
+          <CommentsSection key={data._id} recipeComments={data} date={date} />
+        );
+      })}
     </div>
   );
 };
