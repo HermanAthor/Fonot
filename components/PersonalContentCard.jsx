@@ -11,6 +11,7 @@ import LikesCount from "./LikesCount";
 import CommentsCount from "./CommentsCount";
 import { Button } from "./ui/button";
 import { FilePenLine } from "lucide-react";
+import Link from "next/link";
 
 function PersonalContentCard({ filteredData }) {
   return (
@@ -21,7 +22,6 @@ function PersonalContentCard({ filteredData }) {
           <Card>
             <CardHeader>
               <CardTitle>{recipeTitle}</CardTitle>
-              {/* <CardDescription>Card Description</CardDescription> */}
             </CardHeader>
             <CardContent>
               <AspectRatio objectFit="cover" ratio={"4/3"}>
@@ -36,10 +36,12 @@ function PersonalContentCard({ filteredData }) {
                   <CommentsCount recipeSlug={_id} />
                 </div>
                 <div>
-                  <Button>
-                    <FilePenLine className="mr-2" />{" "}
-                    <span className="text-xl">Edit</span>
-                  </Button>
+                  <Link href={`/personal/${_id}`}>
+                    <Button variant="link">
+                      <FilePenLine className="mr-2" />{" "}
+                      <span className="text-xl">Edit</span>
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </CardFooter>
