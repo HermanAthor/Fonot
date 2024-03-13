@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import EditableImage from "./EditableImage";
 import ToolTip from "./ToolTip";
-import parse from "html-react-parser";
 import RecipeImages from "./RecipeImages";
 import { Trash } from "lucide-react";
+import Tiptap from "./TipTap";
 
 const EditRecipe = ({ recipeData }) => {
   const { recipeTitle, recipeDesc, recipe, thumbnail, files } = recipeData;
@@ -22,8 +22,6 @@ const EditRecipe = ({ recipeData }) => {
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   const [updatedThumbnail, setUpdatedThumbnail] = useState(thumbnail);
   const [updatedFiles, setUpdatedFiles] = useState(files);
-  console.log(updatedRecipe);
-  const recipeContent = parse(updatedRecipe);
 
   return (
     <Card className="w-full md:w-[70%] ">
@@ -51,20 +49,12 @@ const EditRecipe = ({ recipeData }) => {
       </CardHeader>
       <CardContent className="bg-white flex flex-col max-h-[80%] max-w-full">
         <div className="w-full mx-auto flex flex-col overflow-auto p-4 no-scrollbar">
-          {" "}
           <EditableImage
             image={updatedThumbnail[0].url}
             setUpdatedThumbnail={setUpdatedThumbnail}
           />
           <RecipeImages files={updatedFiles} />
-          {/* <ToolTip>
-          <input
-            className="w-full outline-none "
-            type="text"
-            value={updatedRecipe}
-            onChange={(e) => setUpdatedRecipe(e.target.value)}
-          />
-        </ToolTip> */}
+          <Tiptap receipe={updatedRecipe} onChange={setUpdatedRecipe} />
         </div>
       </CardContent>
       <CardFooter>

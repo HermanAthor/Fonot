@@ -6,7 +6,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 
 const Tiptap = ({ receipe, onChange }) => {
-  console.log(receipe);
   const editor = useEditor({
     extensions: [
       Image.configure({
