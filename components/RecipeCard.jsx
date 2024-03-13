@@ -77,8 +77,6 @@ export default function RecipeCard({ recipeData }) {
         // router.refresh();
         const { results } = await res.json();
 
-        // setData(results);
-
         router.push("/recipes");
       } catch (error) {
         console.log(error);

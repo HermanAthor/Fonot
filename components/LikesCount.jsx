@@ -36,7 +36,9 @@ function LikesCount({ _id }) {
         {isLoading ? (
           <CircularProgress color="primary" size="sm" variant="plain" />
         ) : (
-          <span>{filteredLikes.length} Likes</span>
+          <span>
+            {filteredLikes.length} {filteredLikes.length > 1 ? "Likes" : "Like"}
+          </span>
         )}
       </Link>
     </>

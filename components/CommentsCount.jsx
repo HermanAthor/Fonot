@@ -36,7 +36,10 @@ function CommentsCount({ recipeSlug }) {
         {isLoading ? (
           <CircularProgress color="primary" size="sm" variant="plain" />
         ) : (
-          <span>{filteredComments.length} Comments</span>
+          <span>
+            {filteredComments.length}{" "}
+            {filteredComments.length > 1 ? "comments" : "comment"}
+          </span>
         )}
       </Link>
     </>
