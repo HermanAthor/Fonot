@@ -6,17 +6,22 @@ import { NextResponse } from "next/server";
 export async function PUT(request, { params }) {
   const { recipeId } = params;
   try {
-    const { editNoteTitle, editNote, newCategory, like, italic } =
-      await request.json();
+    const {
+      updatedFiles,
+      updatedThumbnail,
+      updatedRecipe,
+      description,
+      title,
+    } = await request.json();
     await mongodbConnect();
     await recipes.findByIdAndUpdate(
       recipeId,
       {
-        newNoteTitle: editNoteTitle,
-        newNote: editNote,
-        category: newCategory,
-        isItalic: italic,
-        isLiked: like,
+        recipeTitle: title,
+        recipeDesc: description,
+        recipe: updatedRecipe,
+        thumbnail: updatedThumbnail,
+        files: updatedFiles,
       },
       { new: true }
     );

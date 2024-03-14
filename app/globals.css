@@ -12,6 +12,9 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  .text-wrap {
+    text-wrap: wrap;
+  }
 }
 
 /* styles for the editor */
