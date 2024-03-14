@@ -3,7 +3,7 @@ import React from "react";
 import ToolTip from "./ToolTip";
 import { ReplaceImageDialog } from "./ReplaceImageDialog";
 
-const RecipeImages = ({ files, setUpdatedFiles }) => {
+const RecipeImages = ({ files, setUpdatedFiles, showImage }) => {
   const deleteUploadedImage = (key) => {
     const filteredFiles = files.filter((item) => item.key !== key);
     setUpdatedFiles(filteredFiles);
@@ -18,6 +18,7 @@ const RecipeImages = ({ files, setUpdatedFiles }) => {
           }}
           className="bg-no-repeat h-24 md:h-36 w-36 rounded-xl relative group"
           key={file.key}
+          onClick={() => showImage(file.url)}
         >
           <div
             // onClick={deleteUploadedImage}

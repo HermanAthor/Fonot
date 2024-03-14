@@ -15,6 +15,7 @@ import RecipeImages from "./RecipeImages";
 import { Trash } from "lucide-react";
 import Tiptap from "./TipTap";
 import { useRouter } from "next/navigation";
+import DisplayableImage from "./DisplayableImage";
 
 const EditRecipe = ({ recipeData }) => {
   const { recipeTitle, recipeDesc, recipe, thumbnail, files, _id } = recipeData;
@@ -23,7 +24,20 @@ const EditRecipe = ({ recipeData }) => {
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   const [updatedThumbnail, setUpdatedThumbnail] = useState(thumbnail);
   const [updatedFiles, setUpdatedFiles] = useState(files);
+
+  //states for displaying images
+  const [showClickedImage, setShowClickedImage] = useState(false);
+  const [clickedImage, setClickedImage] = useState(updatedThumbnail[0].url);
   const router = useRouter();
+  console.log(showClickedImage);
+  //show the image and change the showimg state
+  const showImage = (url) => {
+    setShowClickedImage(true);
+    setClickedImage(url);
+    setTimeout(() => {
+      setShowClickedImage(false);
+    }, 3000);
+  };
 
   const deleteRecipe = async (id) => {
     const confirmed = confirm("Are you sure?");
@@ -99,13 +113,22 @@ const EditRecipe = ({ recipeData }) => {
       </CardHeader>
       <CardContent className="bg-white flex flex-col max-h-[80%] max-w-full">
         <div className="w-full mx-auto flex flex-col overflow-auto p-4 no-scrollbar">
-          <EditableImage
+          {/* <EditableImage
             image={updatedThumbnail[0].url}
             setUpdatedThumbnail={setUpdatedThumbnail}
-          />
+          /> */}
+          {showClickedImage ? (
+            <DisplayableImage image={clickedImage} />
+          ) : (
+            <EditableImage
+              image={updatedThumbnail[0].url}
+              setUpdatedThumbnail={setUpdatedThumbnail}
+            />
+          )}
           <RecipeImages
             files={updatedFiles}
             setUpdatedFiles={setUpdatedFiles}
+            showImage={showImage}
           />
           <Tiptap receipe={updatedRecipe} onChange={setUpdatedRecipe} />
         </div>
