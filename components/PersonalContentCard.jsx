@@ -19,7 +19,7 @@ function PersonalContentCard({ filteredData }) {
       {filteredData.map((data) => {
         const { recipeTitle, recipeDesc, thumbnail, _id } = data;
         return (
-          <Card>
+          <Card className="pb-2">
             <CardHeader>
               <CardTitle>{recipeTitle}</CardTitle>
             </CardHeader>
