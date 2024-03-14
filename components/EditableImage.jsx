@@ -13,8 +13,10 @@ const EditableImage = ({ image, setUpdatedThumbnail }) => {
       <AspectRatio objectFit="cover" ratio={"4/3"}>
         <img src={image} alt="recipe" loading="lazy" />
       </AspectRatio>
-      <div className="overlay items-center justify-center absolute top-0 left-0 w-full h-full bg-[#ffffff] bg-opacity-0 hidden group-hover:flex group-hover:flex-col group-hover:gap-4 group-hover:bg-opacity-80 transition-all duration-500 ">
-        <Typography>You can replace this image if you wish to</Typography>
+      <div className="overlay items-center justify-center absolute top-0 left-0 w-full h-full  bg-opacity-0 hidden group-hover:flex group-hover:flex-col group-hover:gap-4 group-hover:bg-opacity-80 transition-all duration-500 ">
+        <Typography variant="h2" className=" font-bold text-black">
+          You can replace this image if you wish to
+        </Typography>
         <UploadButton
           endpoint="thumbnailUploader"
           onClientUploadComplete={(res) => {
