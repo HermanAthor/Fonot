@@ -1,9 +1,13 @@
-import { Replace, ReplaceIcon, Trash2 } from "lucide-react";
+import { ReplaceIcon, Trash2 } from "lucide-react";
 import React from "react";
 import ToolTip from "./ToolTip";
-import Toolbar from "./Toolbar";
+import { ReplaceImageDialog } from "./ReplaceImageDialog";
 
-const RecipeImages = ({ files }) => {
+const RecipeImages = ({ files, setUpdatedFiles }) => {
+  const deleteUploadedImage = (key) => {
+    const filteredFiles = files.filter((item) => item.key !== key);
+    setUpdatedFiles(filteredFiles);
+  };
   return (
     <div className="flex flex-wrap md:grid md:grid-cols-5 gap-3 py-5">
       {files?.map((file) => (
@@ -13,6 +17,7 @@ const RecipeImages = ({ files }) => {
             backgroundSize: "cover",
           }}
           className="bg-no-repeat h-24 md:h-36 w-36 rounded-xl relative group"
+          key={file.key}
         >
           <div
             // onClick={deleteUploadedImage}
@@ -20,12 +25,19 @@ const RecipeImages = ({ files }) => {
           >
             <div className="">
               <ToolTip helperText={"Replace Image"}>
-                <ReplaceIcon className="text-blue-300 hover:text-blue-500" />
+                <ReplaceImageDialog
+                  imageKey={file.key}
+                  setUpdatedFiles={setUpdatedFiles}
+                  updatedFiles={files}
+                />
               </ToolTip>
             </div>
             <div className="">
               <ToolTip helperText={"Remove Image"}>
-                <Trash2 className="text-red-300 hover:text-red-500" />
+                <Trash2
+                  className="text-red-300 hover:text-red-500"
+                  onClick={() => deleteUploadedImage(file.key)}
+                />
               </ToolTip>
             </div>
           </div>

@@ -53,7 +53,10 @@ const EditRecipe = ({ recipeData }) => {
             image={updatedThumbnail[0].url}
             setUpdatedThumbnail={setUpdatedThumbnail}
           />
-          <RecipeImages files={updatedFiles} />
+          <RecipeImages
+            files={updatedFiles}
+            setUpdatedFiles={setUpdatedFiles}
+          />
           <Tiptap receipe={updatedRecipe} onChange={setUpdatedRecipe} />
         </div>
       </CardContent>
