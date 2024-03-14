@@ -88,7 +88,7 @@ const EditRecipe = ({ recipeData }) => {
   };
 
   return (
-    <Card className="w-full md:w-[70%] ">
+    <Card className="w-full md:w-[70%] p-0">
       <CardHeader>
         <CardTitle>
           <ToolTip helperText={"Click to start editting"}>
@@ -113,10 +113,6 @@ const EditRecipe = ({ recipeData }) => {
       </CardHeader>
       <CardContent className="bg-white flex flex-col max-h-[80%] max-w-full">
         <div className="w-full mx-auto flex flex-col overflow-auto p-4 no-scrollbar">
-          {/* <EditableImage
-            image={updatedThumbnail[0].url}
-            setUpdatedThumbnail={setUpdatedThumbnail}
-          /> */}
           {showClickedImage ? (
             <DisplayableImage image={clickedImage} />
           ) : (
@@ -138,7 +134,6 @@ const EditRecipe = ({ recipeData }) => {
           <div></div>
           <div className="flex flex-row gap-5">
             <Button onClick={updateRecipe} variant="default">
-              {/* <FilePenLine className="mr-2" />{" "} */}
               <span className="text-xl">Update</span>
             </Button>
             <ToolTip helperText={"Delete this recipe"}>

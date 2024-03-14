@@ -3,7 +3,7 @@ import AllNotes from "../../components/AllNotes";
 
 function AllNotesPage() {
   return (
-    <div>
+    <div className="mb-20">
       <AllNotes />
     </div>
   );

@@ -4,7 +4,7 @@ import NoteDetails from "@/components/NotesDetails";
 const NoteIdPage = async ({ params }) => {
   const { noteId } = params;
   return (
-    <div>
+    <div className="mb-20">
       <NoteDetails noteId={noteId} />
     </div>
   );
