@@ -1,8 +1,9 @@
 import Face from "@mui/icons-material/Face";
 import CardContent from "@mui/joy/CardContent";
 import IconButton from "@mui/joy/IconButton";
-import Textarea from "@mui/joy/Textarea";
+// import Textarea from "@mui/joy/Textarea";
 import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { getInitials } from "@/lib/getInitials";
@@ -19,11 +20,8 @@ const CommentTextInput = ({ setComment, postComment, userId, _id }) => {
       <Textarea
         onChange={(e) => setComment(e.target.value)}
         multiline={true}
-        maxRows="3"
-        variant="plain"
-        size="sm"
+        maxRows="4"
         placeholder="Add a comment…"
-        sx={{ flex: 1, px: 0, "--Input-focusedThickness": "0px" }}
       />
       <Button
         onClick={() => postComment(userId, _id)}
