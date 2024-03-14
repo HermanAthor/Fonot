@@ -15,7 +15,9 @@ async function EditRecipePage({ params }) {
 
   return (
     <AppLayout>
-      <EditRecipe recipeData={recipe} />
+      <div className="mb-20">
+        <EditRecipe recipeData={recipe} />
+      </div>
     </AppLayout>
   );
 }

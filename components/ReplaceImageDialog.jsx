@@ -39,7 +39,7 @@ export function ReplaceImageDialog({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <ImagePlus className="h-4 w-4" />
+        <ImagePlus className="h-6 w-6" />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

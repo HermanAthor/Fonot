@@ -14,6 +14,7 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -23,16 +24,20 @@ function CreateNote() {
   const [newNote, setNewNote] = useState("");
   const [category, setCategory] = useState("");
   const [data, setData] = useState([]);
+  const { data: session } = useSession();
 
   // const { user } = useUser();
-  const userId = "234";
+  let userId = "";
+  if (session) {
+    userId = session?.user?.id;
+  }
 
   const router = useRouter();
 
   const handleSubmit = async (e, data) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/notes", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -59,7 +64,7 @@ function CreateNote() {
 
   return (
     <AppLayout>
-      <div className=" container p-10 pt-0 pb-5">
+      <div className=" container p-2 md:p-10 pt-0 mb-20">
         <div className="text-2xl mb-4">Create a Note</div>
         <form
           onSubmit={handleSubmit}

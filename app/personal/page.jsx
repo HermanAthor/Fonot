@@ -5,7 +5,9 @@ import React from "react";
 function PersonalContentPage() {
   return (
     <AppLayout>
-      <PersonalContent />
+      <div className="mb-20">
+        <PersonalContent />
+      </div>
     </AppLayout>
   );
 }
