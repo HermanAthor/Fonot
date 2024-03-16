@@ -32,7 +32,7 @@ const Tiptap = ({ receipe, onChange }) => {
     editorProps: {
       attributes: {
         class:
-          "rounded-md border min-h-[150px] border-input bg-white text-black p-5 text-xl",
+          "rounded-none border min-h-[350px] border-input dark:bg-black dark:text-gray-400 bg-white text-black p-5 text-xl",
       },
     },
     onUpdate({ editor }) {

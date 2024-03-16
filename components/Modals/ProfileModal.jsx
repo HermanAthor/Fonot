@@ -22,7 +22,9 @@ export function ProfileModal() {
             <AvatarImage src={session?.user?.image} alt="user-dp" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <Typography>{session?.user?.name}</Typography>
+          <Typography className="dark:text-gray-400">
+            {session?.user?.name}
+          </Typography>
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent>

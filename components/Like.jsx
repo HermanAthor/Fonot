@@ -102,7 +102,7 @@ export const Like = ({ item }) => {
           color="neutral"
           size="sm"
         >
-          <FavoriteIcon />
+          <FavoriteIcon className="dark:text-gray-400" />
         </IconButton>
       ) : (
         <IconButton
@@ -111,7 +111,7 @@ export const Like = ({ item }) => {
           color="neutral"
           size="sm"
         >
-          <FavoriteBorder />
+          <FavoriteBorder className="dark:text-gray-400" />
         </IconButton>
       )}
     </>

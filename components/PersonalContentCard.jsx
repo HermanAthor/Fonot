@@ -22,12 +22,14 @@ function PersonalContentCard({ filteredData }) {
           <Card className="pb-2 w-full">
             <CardHeader>
               <CardTitle>{recipeTitle}</CardTitle>
+              <CardDescription>{recipeDesc}</CardDescription>
             </CardHeader>
             <CardContent>
               <AspectRatio objectFit="cover" ratio={"4/3"}>
                 <img src={thumbnail[0]?.url} alt="recipe" loading="lazy" />
               </AspectRatio>
-              <Typography>{recipeDesc}</Typography>
+              {/* <CardTitle>{recipeTitle}</CardTitle>
+              <CardDescription>{recipeDesc}</CardDescription> */}
             </CardContent>
             <CardFooter>
               <div className="flex flex-row w-full justify-between items-center">

@@ -3,11 +3,17 @@ import { Box, Grid, Typography } from "@mui/material";
 import Sidebar from "../Sidebar";
 import BottomNavigation from "../BottomNavigation";
 import { useEffect, useState } from "react";
+import { ToggleDarkMode } from "../ToggleDarkMode";
+import { ProfileModal } from "../Modals/ProfileModal";
+import { logIn } from "@/app/actions";
+import { useSession } from "next-auth/react";
+import { Button } from "../ui/button";
 
 export default function AppLayout({ children }) {
   const [isSmallScreen, setIsSmallScreen] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false
   );
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -40,8 +46,22 @@ export default function AppLayout({ children }) {
           item
           xs={12}
           md={10}
-          className="border-2 bg-[#eaefefdb] dark:bg-[#272829]"
+          className="border-2 bg-[#eaefefdb] dark:bg-[#242425]"
         >
+          <div className="flex flex-row gap-4 justify-end items-end px-24 py-4">
+            <ToggleDarkMode />
+            <div className="flex flex-row justify-center items-center gap-3">
+              {session ? (
+                <ProfileModal />
+              ) : (
+                <div>
+                  <form action={() => logIn()}>
+                    <Button type="submit">Sign In</Button>
+                  </form>
+                </div>
+              )}
+            </div>
+          </div>
           <div className="flex flex-col items-center overflow-y-scroll max-h-screen w-full no-scrollbar relative">
             {children}
 

@@ -70,7 +70,7 @@ export function Comments({
       >
         <DialogTrigger asChild>
           <IconButton variant="plain" color="neutral" size="sm">
-            <ModeCommentOutlined />
+            <ModeCommentOutlined className="dark:text-gray-400" />
           </IconButton>
         </DialogTrigger>
         <DialogContent className="bg-white flex flex-col  max-h-[70%] rounded-t-[10px] max-w-4xl">

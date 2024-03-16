@@ -27,6 +27,7 @@ function LikesCount({ _id }) {
   return (
     <>
       <Link
+        className="dark:text-gray-400"
         component="button"
         underline="none"
         fontSize="sm"
@@ -36,7 +37,7 @@ function LikesCount({ _id }) {
         {isLoading ? (
           <CircularProgress color="primary" size="sm" variant="plain" />
         ) : (
-          <span>
+          <span className="dark:text-gray-400">
             {filteredLikes.length} {filteredLikes.length > 1 ? "Likes" : "Like"}
           </span>
         )}

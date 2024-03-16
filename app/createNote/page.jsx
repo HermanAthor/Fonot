@@ -4,6 +4,8 @@ import CreateReceipe from "@/components/CreateReceipe";
 import AppLayout from "@/components/Layouts/AppLayout";
 import NavHeader from "@/components/NavHeader";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 //import { useUser } from "@clerk/nextjs";
 import {
   Avatar,
@@ -70,24 +72,27 @@ function CreateNote() {
           onSubmit={handleSubmit}
           className="flex flex-col gap-3 justify-start items-start"
         >
-          <TextField
+          <Input
+            placeholder="Note title"
             value={newNoteTitle}
             onChange={(e) => setNewNoteTitle(e.target.value)}
-            className="mt-4"
-            label="Note title"
-            fullWidth
           />
-          <TextField
+          <Textarea
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             className="mt-4"
-            label="Note"
+            placeholder="Note"
             multiline
             rows={4}
-            fullWidth
+            maxRows={12}
           />
           <FormControl sx={{ width: "fit-content" }}>
-            <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
+            <FormLabel
+              className="dark:text-gray-400"
+              id="demo-radio-buttons-group-label"
+            >
+              Category
+            </FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               valueclear={category}

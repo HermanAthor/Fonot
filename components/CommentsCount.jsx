@@ -27,6 +27,7 @@ function CommentsCount({ recipeSlug }) {
   return (
     <>
       <Link
+        className="dark:text-gray-400"
         component="button"
         underline="none"
         fontSize="sm"
@@ -36,7 +37,7 @@ function CommentsCount({ recipeSlug }) {
         {isLoading ? (
           <CircularProgress color="primary" size="sm" variant="plain" />
         ) : (
-          <span>
+          <span className="dark:text-gray-400">
             {filteredComments.length}{" "}
             {filteredComments.length > 1 ? "comments" : "comment"}
           </span>
