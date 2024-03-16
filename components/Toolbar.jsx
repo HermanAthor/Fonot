@@ -15,7 +15,7 @@ function Toolbar({ editor }) {
     return null;
   }
   return (
-    <div className="border border-input bg-transparent rounded-br-lg">
+    <div className="border border-input bg-transparent">
       <Toggle
         size="sm"
         pressed={editor.isActive("heading")}

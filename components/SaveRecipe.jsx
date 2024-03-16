@@ -147,7 +147,7 @@ export const SavePost = ({ item }) => {
           color="neutral"
           size="sm"
         >
-          <BookmarkAddedIcon />
+          <BookmarkAddedIcon className="dark:text-gray-400" />
         </IconButton>
       ) : (
         <IconButton
@@ -156,7 +156,7 @@ export const SavePost = ({ item }) => {
           color="neutral"
           size="sm"
         >
-          <BookmarkAddIcon />
+          <BookmarkAddIcon className="dark:text-gray-400" />
         </IconButton>
       )}
     </>

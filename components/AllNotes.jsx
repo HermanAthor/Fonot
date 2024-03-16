@@ -31,7 +31,7 @@ function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
   const { data: session } = useSession();
-  console.log(session);
+
   // console.log(session.user.name);
   //const { user } = useUser(); //getting user object
 
@@ -94,21 +94,10 @@ function AllNotes() {
             <SelectComp notes={notes} />
           </div> */}
         </div>
-        <div className="hidden md:flex flex-row justify-center items-center gap-3">
-          {session ? (
-            <ProfileModal />
-          ) : (
-            <div>
-              <form action={() => logIn()}>
-                <Button type="submit">Sign In</Button>
-              </form>
-            </div>
-          )}
-        </div>
       </div>
       <div className="overflow-y-auto p-2 no-scrollbar">
         <div className=" overflow-y-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 p-5 pb-5 gap-3">
             {notes &&
               filteredNotes.map((note) => {
                 const { category, newNoteTitle, newNote, _id, isLiked } = note;

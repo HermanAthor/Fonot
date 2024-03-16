@@ -109,6 +109,7 @@ export default function RecipeCard({ recipeData }) {
             } = item;
             return (
               <Card
+                className="dark:bg-[#242425] text-white"
                 variant="outlined"
                 sx={{
                   minWidth: { md: "100%", sm: 300 },
@@ -146,14 +147,16 @@ export default function RecipeCard({ recipeData }) {
                       }}
                     />
                   </Box>
-                  <Typography fontWeight="lg">Athor</Typography>
+                  <Typography className="dark:text-gray-400" fontWeight="lg">
+                    Athor
+                  </Typography>
                   <IconButton
                     variant="plain"
                     color="neutral"
                     size="sm"
                     sx={{ ml: "auto" }}
                   >
-                    <MoreHoriz />
+                    <MoreHoriz className="dark:text-gray-400" />
                   </IconButton>
                 </CardContent>
                 <RecipeDetailDialog
@@ -179,9 +182,10 @@ export default function RecipeCard({ recipeData }) {
                       userId={userId}
                       _id={_id}
                     />
-                    <IconButton variant="plain" color="neutral" size="sm">
+                    {/* I will implement this when i add messaging functionality */}
+                    {/* <IconButton variant="plain" color="neutral" size="sm">
                       <SendOutlined />
-                    </IconButton>
+                    </IconButton> */}
                   </Box>
                   <Box
                     sx={{
@@ -191,7 +195,7 @@ export default function RecipeCard({ recipeData }) {
                       mx: "auto",
                     }}
                   >
-                    <Typography>
+                    <Typography className="dark:text-gray-400">
                       {recipeDurationCount(recipeDuration)} to prepare
                     </Typography>
                   </Box>
@@ -208,8 +212,11 @@ export default function RecipeCard({ recipeData }) {
                 <CardContent>
                   <LikesCount _id={_id} />
                   <CommentsCount recipeSlug={_id} />
-                  <Typography fontSize="sm">{recipeDesc}</Typography>
+                  <Typography className="dark:text-gray-400" fontSize="sm">
+                    {recipeDesc}
+                  </Typography>
                   <Link
+                    className="dark:text-gray-400"
                     component="button"
                     underline="none"
                     fontSize="sm"
@@ -219,6 +226,7 @@ export default function RecipeCard({ recipeData }) {
                     more
                   </Link>
                   <Link
+                    className="dark:text-gray-400"
                     component="button"
                     underline="none"
                     fontSize="10px"

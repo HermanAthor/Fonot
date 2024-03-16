@@ -8,6 +8,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/components/AuthProviders";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,17 @@ export default function RootLayout({ children }) {
     <AuthProvider>
       <html lang="en">
         <body className={inter.className}>
-          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
 
-          {children}
-          <Toaster />
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </AuthProvider>
