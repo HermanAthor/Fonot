@@ -11,7 +11,6 @@ const adapterOptions = {
 };
 
 export const Chatbot = () => {
-  //const [generatedRecipe, setGeneratedRecipe] = useState("");
   const nlbridgeAdapter = useChatAdapter(adapterOptions);
   const [generatedRecipe, setGeneratedRecipe] =
     useRecoilState(generatedRecipeState);
@@ -20,9 +19,6 @@ export const Chatbot = () => {
     (message) => setGeneratedRecipe(message),
     []
   );
-  if (generatedRecipe) {
-    console.log(generatedRecipe);
-  }
 
   return (
     <AiChat

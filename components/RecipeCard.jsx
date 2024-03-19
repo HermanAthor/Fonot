@@ -9,7 +9,7 @@ import Link from "@mui/joy/Link";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
-import SendOutlined from "@mui/icons-material/SendOutlined";
+
 import CommentTextInput from "./CommentTextInput";
 import { Comments } from "./Comments";
 import { Like } from "./Like";
@@ -23,7 +23,7 @@ import { SavePost } from "./SaveRecipe";
 import { RecipeDetailDialog } from "./RecipeDetailsDialog";
 import { recipeDurationCount } from "@/lib/recipeDurationCount";
 import { useSession } from "next-auth/react";
-import { logIn } from "@/app/actions";
+
 import { alertUserToSign } from "@/lib/alertUserToSignIn";
 
 export default function RecipeCard({ recipeData }) {

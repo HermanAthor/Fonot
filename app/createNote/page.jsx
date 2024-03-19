@@ -123,10 +123,6 @@ function CreateNote() {
           </Button>
         </form>
         <CreateReceipe />
-        <div>
-          <div>Get help with recipe ideas</div>
-          <Chatbot />
-        </div>
       </div>
     </AppLayout>
   );

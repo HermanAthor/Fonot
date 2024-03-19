@@ -8,20 +8,9 @@ import { ProfileModal } from "../Modals/ProfileModal";
 import { logIn } from "@/app/actions";
 import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { generatedRecipeState } from "../providers/stateStore";
-import copy from "copy-to-clipboard";
+import { ChatbotModal } from "../Modals/ChatbotModal";
 
 export default function AppLayout({ children }) {
-  const [generatedRecipe, setGeneratedRecipe] =
-    useRecoilState(generatedRecipeState);
-  const [copyStatus, setCopyStatus] = useState(false);
-  // function to run when recipe is copied
-  const onCopy = () => {
-    setCopyStatus(true);
-    setTimeout(() => setCopyStatus(false), 2000);
-  };
-
   const [isSmallScreen, setIsSmallScreen] = useState(
     typeof window !== "undefined" ? window.innerWidth <= 768 : false
   );
@@ -41,11 +30,7 @@ export default function AppLayout({ children }) {
       };
     }
   }, []);
-  console.log(generatedRecipe);
-  if (generatedRecipe) {
-    setGeneratedRecipe(generatedRecipe);
-  }
-  const textToCopy = <p>{generatedRecipe}</p>;
+
   return (
     <div className="fixed min-h-screen w-full overflow-auto no-scrollbar">
       <Grid container spacing={0}>
@@ -62,17 +47,10 @@ export default function AppLayout({ children }) {
           item
           xs={12}
           md={10}
-          className="border-2 bg-[#eaefefdb] dark:bg-[#242425]"
+          className="  bg-[#d1d2cedb] dark:bg-[#272829]"
         >
           <div className="flex flex-row gap-4 justify-end items-end md:px-24 py-4">
-            <Button onClick={() => copy(textToCopy)}>
-              Copy generated recipe
-            </Button>
-
-            <Button className="text-green-500" variant="link" disabled>
-              Copied!
-            </Button>
-
+            <ChatbotModal />
             <ToggleDarkMode />
             <div className="flex flex-row justify-center items-center gap-3">
               {session ? (

@@ -24,6 +24,7 @@ import { useSession } from "next-auth/react";
 import { alertUserToSign } from "@/lib/alertUserToSignIn";
 import { useRecoilState } from "recoil";
 import { generatedRecipeState } from "./providers/stateStore";
+import { CopyGeneratedText } from "./CopyGeneratedText";
 
 function CreateReceipe() {
   const [files, setFiles] = useState([]);
@@ -214,7 +215,6 @@ function CreateReceipe() {
               </FormItem>
             )}
           />
-          <p>{generatedRecipe}</p>
           <FormField
             control={form.control}
             name="dietOptions"
