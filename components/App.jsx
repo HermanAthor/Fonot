@@ -1,6 +1,7 @@
 import Link from "next/link";
 import LandingPage from "./LandingPage";
 import HeroSection from "./landing-page/HeroSection";
+import { HowItWorks } from "./landing-page/HowItWorks";
 //import { UserButton, currentUser } from "@clerk/nextjs";
 
 async function App() {
@@ -19,7 +20,7 @@ async function App() {
   return (
     <>
       <HeroSection />
-      <HeroSection />
+      <HowItWorks />
     </>
   );
 }

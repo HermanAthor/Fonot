@@ -85,7 +85,13 @@ function PersonalContent() {
         </div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-3 md:grid px-1">
-        <PersonalContentCard filteredData={filteredDataByCategory} />
+        {filteredDataByCategory ? (
+          <PersonalContentCard filteredData={filteredDataByCategory} />
+        ) : (
+          <div className=" w-[50%] items-center lg:mt-0 lg:col-span-5 lg:flex animate-spin">
+            <img src="/food.png" alt="food" />
+          </div>
+        )}
       </div>
     </>
   );
