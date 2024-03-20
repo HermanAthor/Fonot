@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50",
         link: "text-gray-900 underline-offset-4 hover:bg-gray-100  dark:text-gray-50",
+        copied:
+          "text-green-500 underline-offset-4 hover:bg-gray-100  dark:text-green-500",
         sucess:
           "bg-green-500 text-gray-50 hover:bg-green-500/90 dark:bg-green-900 dark:text-gray-50 dark:hover:bg-green-900/90",
       },

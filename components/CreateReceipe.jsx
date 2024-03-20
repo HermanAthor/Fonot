@@ -22,12 +22,17 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { alertUserToSign } from "@/lib/alertUserToSignIn";
+import { useRecoilState } from "recoil";
+import { generatedRecipeState } from "./providers/stateStore";
+import { CopyGeneratedText } from "./CopyGeneratedText";
 
 function CreateReceipe() {
   const [files, setFiles] = useState([]);
   const [thumbnail, setThumbnail] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
   const [dietOption, setDietOptions] = useState("");
+  const [generatedRecipe, setGeneratedRecipe] =
+    useRecoilState(generatedRecipeState);
   const router = useRouter();
   const { data: session } = useSession();
 
