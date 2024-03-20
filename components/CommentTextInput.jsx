@@ -19,8 +19,8 @@ const CommentTextInput = ({ setComment, postComment, userId, _id }) => {
       </Avatar>
       <Textarea
         onChange={(e) => setComment(e.target.value)}
-        multiline={true}
-        maxRows="4"
+        multiline="true"
+        maxrows="4"
         placeholder="Add a comment…"
       />
       <Button

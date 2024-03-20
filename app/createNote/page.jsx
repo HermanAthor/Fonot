@@ -82,7 +82,7 @@ function CreateNote() {
             onChange={(e) => setNewNote(e.target.value)}
             className="mt-4"
             placeholder="Note"
-            multiline
+            multiline="true"
             rows={4}
             maxRows={12}
           />

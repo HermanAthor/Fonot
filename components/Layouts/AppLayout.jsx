@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import Sidebar from "../Sidebar";
 import BottomNavigation from "../BottomNavigation";
 import { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ export default function AppLayout({ children }) {
         <Grid
           item
           xs={2}
-          className="w-full hidden md:flex bg-[#d1d2cedb] dark:bg-[#272829]"
+          className="w-full hidden md:flex bg-[#d1d2cedb] dark:bg-gray-900"
         >
           <div className="flex flex-col items-center justify-center overflow-y-scroll max-h-screen w-full no-scrollbar">
             <Sidebar />
@@ -46,7 +46,7 @@ export default function AppLayout({ children }) {
           item
           xs={12}
           md={10}
-          className="border-2 bg-[#eaefefdb] dark:bg-[#242425]"
+          className="border-2 bg-[#eaefefdb] dark:bg-gray-900"
         >
           <div className="flex flex-row gap-4 justify-end items-end px-24 py-4">
             <ToggleDarkMode />
