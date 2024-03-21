@@ -1,36 +1,26 @@
 "use client";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Link from "next/link";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-// import React, { useEffect, useState } from "react";
+
 import ViewListIcon from "@mui/icons-material/ViewList";
 import Image from "next/image";
-// import Skeleton from "react-loading-skeleton";
+
 // This side bar is only for md screens and above
 export default function Sidebar() {
-  // const [notesList, setNotesList] = useState([]);
-  // useEffect(() => {
-  //   fetch("/api/notes")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.success) {
-  //         setNotesList(data.results);
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching notes:", error));
-  // }, []);
-
   return (
     <Grid item xs={12} className=" h-screen">
       <Box className="min-h-screen w-full overflow-y-auto mt-10 flex flex-col justify-start items-start p-4 pl-0">
         <div className="mb-10">
-          <Image
-            src={"/images/noteslogo.svg"}
-            width={200}
-            height={200}
-            alt="noteslogo"
-          />
+          <Link href={"/"}>
+            <Image
+              src={"/images/noteslogo.svg"}
+              width={200}
+              height={200}
+              alt="noteslogo"
+            />
+          </Link>
         </div>
         <div className="flex flex-col justify-start items-start align-middle ">
           <Link href={"/allNotes"}>

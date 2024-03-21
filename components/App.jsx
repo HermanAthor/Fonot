@@ -1,8 +1,8 @@
 import Link from "next/link";
-import LandingPage from "./LandingPage";
 import HeroSection from "./landing-page/HeroSection";
-import { HowItWorks } from "./landing-page/HowItWorks";
-//import { UserButton, currentUser } from "@clerk/nextjs";
+import { HowItWorksLeft, HowItWorksRight } from "./landing-page/HowItWorks";
+import { Interested } from "./landing-page/Interested";
+import { Footer } from "./landing-page/Footer";
 
 async function App() {
   const user = "234";
@@ -20,7 +20,44 @@ async function App() {
   return (
     <>
       <HeroSection />
-      <HowItWorks />
+      <Link href={"/createNote"}>
+        <HowItWorksRight
+          image="/create-recipe.png"
+          heading={"Start by CREATING"}
+          description={
+            "Share your kitchen secrets with the commuity by using our AI assisted editor"
+          }
+        />
+      </Link>
+      <Link href={"/recipes"}>
+        <HowItWorksLeft
+          image="/community-posts.png"
+          heading={"Check out the COMMUNITY posts"}
+          description={
+            "With an instagram feel and interface but more purposeful to interact with the community posts"
+          }
+        />
+      </Link>
+      <Link href={"/recipes"}>
+        <HowItWorksRight
+          image="/comment-post.png"
+          heading={"Interact with the RECIPES too"}
+          description={
+            "You can do all common post interactions with the recipes you see... Comment, Save, OR give it a like. You name it"
+          }
+        />
+      </Link>
+      <Link href="/personal">
+        <HowItWorksLeft
+          image="/personal-posts.png"
+          heading={"You wanna keep things PERSONAL?"}
+          description={
+            "We have got your back, You can choose to keep all your posts personal with your access only. Thats because every post is fully authenticated by your own credentials. You can contacts us to know more about this."
+          }
+        />
+      </Link>
+      <Interested />
+      <Footer />
     </>
   );
 }
