@@ -9,6 +9,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/components/AuthProviders";
 import { ThemeProvider } from "@/components/theme-provider";
+import RecoilStateProvider from "@/components/providers/RecoilStateProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,17 +23,21 @@ export default function RootLayout({ children }) {
     <AuthProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+          <RecoilStateProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <NextSSRPlugin
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
 
-            {children}
-            <Toaster />
-          </ThemeProvider>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </RecoilStateProvider>
         </body>
       </html>
     </AuthProvider>

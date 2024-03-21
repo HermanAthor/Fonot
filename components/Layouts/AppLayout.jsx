@@ -8,6 +8,7 @@ import { ProfileModal } from "../Modals/ProfileModal";
 import { logIn } from "@/app/actions";
 import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
+import { ChatbotModal } from "../Modals/ChatbotModal";
 
 export default function AppLayout({ children }) {
   const [isSmallScreen, setIsSmallScreen] = useState(
@@ -46,9 +47,12 @@ export default function AppLayout({ children }) {
           item
           xs={12}
           md={10}
-          className="border-2 bg-[#eaefefdb] dark:bg-gray-900"
+
+          className="bg-[#eaefefdb] dark:bg-gray-900"
+
         >
-          <div className="flex flex-row gap-4 justify-end items-end px-24 py-4">
+          <div className="flex flex-row gap-4 justify-end items-end md:px-24 py-4">
+            <ChatbotModal />
             <ToggleDarkMode />
             <div className="flex flex-row justify-center items-center gap-3">
               {session ? (
