@@ -9,9 +9,9 @@ export function Interested() {
           Does this sound interesting to you?
         </h1>
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-          It is interely FREE to join us and we garantee you will find value in
-          using this platform, And we will be extremely happy to have you with
-          us
+          It is interely FREE to join us and we garantee you will find alot of
+          value in using this platform, And we will be extremely happy to have
+          you with us
         </p>
         <div className="">
           <Button className="mr-2 my-5">Get Started</Button>
