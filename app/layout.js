@@ -13,8 +13,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Notes App",
-  description: "Create your notes simply",
+  title: "Fonot",
+  description: "Home to your recipes",
 };
 
 export default function RootLayout({ children }) {
