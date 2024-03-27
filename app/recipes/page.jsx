@@ -5,7 +5,7 @@ import React from "react";
 function RecipesPage() {
   return (
     <AppLayout>
-      <div className="mb-20">
+      <div className="mb-20 pb-10">
         <RecipePage />
       </div>
     </AppLayout>

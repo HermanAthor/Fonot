@@ -66,7 +66,7 @@ function CreateNote() {
 
   return (
     <AppLayout>
-      <div className=" container p-2 md:p-10 pt-0 mb-20">
+      <div className=" container p-2 md:p-10 pt-0 mb-20 pb-10 md:pb-0 md:mb-10 ">
         <div className="text-2xl mb-4">Create a Note</div>
         <form
           onSubmit={handleSubmit}
